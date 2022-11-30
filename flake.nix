@@ -9,7 +9,7 @@
           (
             system :
               {
-                devShell =
+                lib =
 		  let
 		    strip =
 		      string :
