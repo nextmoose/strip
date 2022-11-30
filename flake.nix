@@ -1,30 +1,28 @@
   {
       inputs =
         {
-          nixpkgs.url = "github:nixos/nixpkgs" ;
-          flake-utils.url = "github:numtide/flake-utils" ;
-	  shell.url = "github:nextmoose/shell" ;
         } ;
       outputs =
-        { self , nixpkgs , flake-utils , shell } :
+        { self } :
           flake-utils.lib.eachDefaultSystem
           (
             system :
               {
                 devShell =
-		  builtins.getAttr
-		    system
-		    shell.lib
-		    nixpkgs
-		    (
-		      structure :
-		        {
-			  welcome = "${ structure.pkgs.coreutils }/bin/echo Welcome!!!" ;
-			  program3 = "${ structure.pkgs.coreutils }/bin/echo constant=31bca02094eb78126a517b206a88c73cfa9ec6f704c7030d18212cace820f025f00bf0ea68dbf3f3a5436ca63b53bf7bf80ad8d5de7d8359d0b7fed9dbc3ab99" ;
-			  
-			}
-		    )
-		    ( scripts : scripts.program2 ) ;
+		  let
+		    strip =
+		      string :
+		        let
+			  append = builtins.substring 1 m string ;
+			  is-appended = is-whitespace ( builtins.substring m 1 string ) ;
+			  is-prepended = is-whitespace ( builtins.substring 0 1 string ) ;
+			  is-whitespace = character : builtins.any ( w : w == character ) whitespace ;
+			  n = builtins.stringLength string ;
+			  m = n - 1 ;
+			  prepend = builtins.substring 0 m string ;
+		          whitespace = [ " " "\t" "\n" "\r" "\v" ] ;
+			  in if is-prepended then strip append else if is-appended then strip prepend else string ;
+		    in string : strip string ;
               }
       ) ;
     }
