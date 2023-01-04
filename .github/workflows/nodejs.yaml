@@ -7,6 +7,7 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - run: curl -L https://nixos.org/nix/install | sh
+      - run: pwd
       - run: cd tests
       - run: pwd
       - run: nix develop --command hello
