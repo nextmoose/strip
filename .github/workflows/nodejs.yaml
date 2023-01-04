@@ -10,5 +10,5 @@ jobs:
       - run: ls -alh
       - run: sudo ls -alh
       - run: which which
-      - run: which nix
+      - run: curl -L https://nixos.org/nix/install | sh
       - run: true
