@@ -11,4 +11,4 @@ jobs:
       - run: pwd
       - run: cd tests
       - run: pwd
-      - run:  . /home/runner/.nix-profile/etc/profile.d/nix.sh && cd tests && nix develop --command hello
+      - run:  . /home/runner/.nix-profile/etc/profile.d/nix.sh && cd tests && nix develop --extra-experimental-features --command hello
