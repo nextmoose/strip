@@ -1,11 +1,10 @@
 name: My CI-CD 
 on:
   push: 
-jobs: 
+jobs:
   build: 
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v3
       - run: curl -L https://nixos.org/nix/install | sh
-      - run: curl -L https://raw.githubusercontent.com/nextmoose/tests/scratch/03ea2867-89e0-4290-a7ea-15a7d4e50fd3/strip.sh | sh
-      - run: true
+      - run: nix develop --file tests.flake --command hello
