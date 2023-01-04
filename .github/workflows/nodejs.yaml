@@ -9,5 +9,5 @@ jobs:
       - run: pwd
       - run: ls -alh
       - run: sudo ls -alh
-      - run which nix
+      - run: which nix
       - run: true
