@@ -7,4 +7,4 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - run: curl -L https://nixos.org/nix/install | sh
-      - run: nix develop --file tests.flake --command hello
+      - run: cd tests && nix develop --command hello
