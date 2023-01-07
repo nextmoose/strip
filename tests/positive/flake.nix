@@ -21,8 +21,10 @@
                                   ''
                                     ${ pkgs.coreutils }/bin/cat <<EOF
                                     Hello
+				    BEFORE
 				    ${ nixpkgs.url }
-                                    ${ if test "A" == "A" then "YES" else "NO" }
+                                    AFTER
+				    ${ if test "A" == "A" then "YES" else "NO" }
                                     EOF
                                   ''
                                 )
