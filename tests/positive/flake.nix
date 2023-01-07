@@ -1,10 +1,10 @@
   {
-      inputs =
-        {
-          nixpkgs.url = "github:nixos/nixpkgs?rev=57eac89459226f3ec743ffa6bbbc1042f5836843" ;
-          flake-utils.url = "github:numtide/flake-utils" ;
-          strip.url = "/home/runner/work/strip/strip" ;
-        } ;
+    inputs =
+      {
+        nixpkgs.url = "github:nixos/nixpkgs?rev=57eac89459226f3ec743ffa6bbbc1042f5836843" ;
+        flake-utils.url = "github:numtide/flake-utils" ;
+        strip.url = "/home/runner/work/strip/strip" ;
+      } ;
       outputs =
         { self , nixpkgs , flake-utils , strip } :
           flake-utils.lib.eachDefaultSystem
@@ -21,6 +21,7 @@
                                   ''
                                     ${ pkgs.coreutils }/bin/cat <<EOF
                                     Hello
+				    ${ nixpkgs.url }
                                     ${ if test "A" == "A" then "YES" else "NO" }
                                     EOF
                                   ''
