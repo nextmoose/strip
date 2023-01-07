@@ -6,11 +6,10 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Nix
-        uses: cachix/install-nix-action@v17
-          with:
-  	    extra_nix_config: |
-	      access-tokens = github.com=${{ secrets.TOKEN }}
-      - name: Build release
-        run: cd tests && nix develop --command cargo build --release
+    - uses: actions/checkout@v3
+    - name: Install Nix
+      uses: cachix/install-nix-action@v18
+        with:
+          access-tokens = github.com=${{ secrets.TOKEN }}
+    - name: Build release
+      run: cd tests && nix develop --command hello build --release
