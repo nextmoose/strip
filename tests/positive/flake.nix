@@ -14,18 +14,18 @@
                 devShell =
                   let
                     pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
-		    test = builtins.getAttr system strip.lib ;
-		    in
- 			pkgs.mkShell { buildInputs = [
-				( pkgs.writeShellScriptBin "hello"
-				  ''
-				    ${ pkgs.coreutils }/bin/cat <EOF
-				    Hello
-				    ${ if test "A" == "A" then "YES" else "NO" }
-				    EOF
-				  ''
-				)
-			] ; };
+                    test = builtins.getAttr system strip.lib ;
+                    in
+                        pkgs.mkShell { buildInputs = [
+                                ( pkgs.writeShellScriptBin "hello"
+                                  ''
+                                    ${ pkgs.coreutils }/bin/cat <<EOF
+                                    Hello
+                                    ${ if test "A" == "A" then "YES" else "NO" }
+                                    EOF
+                                  ''
+                                )
+                        ] ; };
               }
       ) ;
     }
