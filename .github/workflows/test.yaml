@@ -15,4 +15,3 @@ jobs:
         name: nextmoose
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: cd tests/positive && nix develop --command hello
-    - run cachix push nextmoose
