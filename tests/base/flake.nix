@@ -36,7 +36,8 @@
                                               inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; testee.url = "${ _utils.bash-variable "PROJECT_DIRECTORY" }" ; } ;
                                               outputs =
                                                 { flake-utils , nixpkgs , self , testee } :
-						  flake-utils.lib.eachDefaultSystem ( system : { lib = pkgs.makeShell { inputHooks = value.observed ( builtins.getAttr system testee.lib ) ; } ; } ) ;
+						  flake-utils.lib.eachDefaultSystem
+						    ( system : { lib = pkgs.makeShell { inputHooks = "${ pkgs.coreutils }/bin/echo ${ builtins.hashString "sha256" ( value.observed ( builtins.getAttr system testee.lib ) ) ; } ; } ) ;
                                             }
                                           EOF
                                           ) &&
