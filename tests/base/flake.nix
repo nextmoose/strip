@@ -144,7 +144,7 @@
                               in builtins.attrNames ( builtins.mapAttrs mapper test ) ;
                           in pkgs.makeShell
                             {
-			      shellHook = builtins.concatStringsSep " &&\n" ( hook programs ) ;
+			      buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ) ] ;
                             } ;
                     } ;
               }
