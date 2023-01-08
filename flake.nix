@@ -1,7 +1,7 @@
   {
       inputs =
         {
-          flake-utils.url = "github:numtide/flake-utils" ;
+          flake-utils.url = "github:numtide/flake-utils?rev=5aed5285a952e0b949eb3ba02c12fa4fcfef535f" ;
         } ;
       outputs =
         { self , flake-utils } :

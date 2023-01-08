@@ -19,6 +19,10 @@
                         pkgs.mkShell { buildInputs = [
                                 ( pkgs.writeShellScriptBin "hello"
                                   ''
+				    if [ "${ strip.input.flake-utils.rev }" == "5aed5285a952e0b949eb3ba02c12fa4fcfef535fX" ]
+				    then
+				      ${ pkgs.coreuilts }/bin/echo The flake-utils version is good
+				    fi &&
                                     ${ pkgs.coreutils }/bin/cat <<EOF
                                     Hello
                                     ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( name : value : "${ name }" ) strip.inputs.flake-utils ) ) }
