@@ -16,7 +16,7 @@
                     {
                       devShell =
                         let
-			  _test = builtins.getAttr system test.lib ;
+                          _test = builtins.getAttr system test.lib ;
                           _utils = builtins.getAttr system utils.lib ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           programs =
@@ -54,10 +54,10 @@
                                 let
                                   mapper =
                                     name : value :
-				      let
-				        input = builtins.getAttr name test.inputs ;
+                                      let
+                                        input = builtins.getAttr name test.inputs ;
                                         in
-					  pkgs.writeShellScriptBin
+                                          pkgs.writeShellScriptBin
                                             name
                                             ''
                                               OBSERVED="${ input.rev }" &&
@@ -79,6 +79,7 @@
                                               EOF
                                                 ) &&
                                                 exit 64
+                                              fi
                                             '' ;
                                   in builtins.attrValues ( builtins.mapAttrs mapper versions ) ;
                             } ;
