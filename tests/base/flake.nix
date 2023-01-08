@@ -12,14 +12,14 @@
             system :
               {
                 lib =
-                  test : positives : negatives : hook :
+                  test : positives : negatives :
                     {
                       devShell =
                         let
                           _utils = builtins.getAttr system utils.lib ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           programs =
-                            {
+                            let
                               negatives =
                                 let
                                   mapper =
@@ -64,7 +64,7 @@
                                             exit 64
                                           fi
                                         '' ;
-                                  in builtins.mapAttrs mapper ( negatives ( builtins.getAttr system test.lib ) ) ;
+                                  in builtins.getAttrs ( builtins.mapAttrs mapper ( negatives ( builtins.getAttr system test.lib ) ) ) ;
                               positives =
                                 let
                                   mapper =
@@ -93,7 +93,7 @@
                                             exit 64
                                           fi
                                         '' ;
-                                  in builtins.mapAttrs mapper ( positives ( builtins.getAttr system test.lib ) ) ;
+                                  in builtins.getAttrs ( builtins.mapAttrs mapper ( positives ( builtins.getAttr system test.lib ) ) ) ;
                               versions =
                                 let
                                   mapper =
@@ -121,11 +121,11 @@
                                             ) &&
                                             exit 64
                                         '' ;
-                                  in builtins.mapAttrs mapper test ;
-		            } ;
+                                  in builtins.getAttrs ( builtins.mapAttrs mapper test ) ;
+		              in builtins.concatLists [ negatives positives versions ] ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ) ] ;
+                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" programs ) ) ] ;
                             } ;
                     } ;
               }
