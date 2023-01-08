@@ -26,7 +26,7 @@
                                     name : value :
                                       let
                                         pkgs.writeShellScript
-                                          "negative-${ name }"
+                                          name
                                           ''
 					    PROJECT_DIRECTORY=$( ${ pkgs.coreutils }/bin/pwd ) &&
 					    cd $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
@@ -83,13 +83,13 @@
                                               exit 64
                                             fi
                                           '' ;
-                                  in builtins.attrNames ( builtins.mapAttrs mapper ( negatives ( builtins.getAttr system test.lib ) ) ) ;
+                                  in builtins.mapAttrs mapper ( negatives ( builtins.getAttr system test.lib ) ) ;
                               positives =
                                 let
                                   mapper =
                                     name : value :
                                       pkgs.writeShellScript
-                                        "positive-${ name }"
+                                        "name"
                                         ''
                                           OBSERVED="${ value test }" &&
                                           EXPECTED="${ _utils.bash-variable "1" }" &&
@@ -112,7 +112,7 @@
                                             exit 64
                                           fi
                                         '' ;
-                                  in builtins.attrNames ( builtins.mapAttrs mapper ( positives ( builtins.getAttr system test.lib ) ) ) ;
+                                  in builtins.mapAttrs mapper ( positives ( builtins.getAttr system test.lib ) ) ;
                               versions =
                                 let
                                   mapper =
@@ -141,7 +141,7 @@
                                             exit 64
                                         '' ;
                                 } ;
-                              in builtins.attrNames ( builtins.mapAttrs mapper test ) ;
+                              in builtins.mapAttrs mapper test ;
                           in pkgs.makeShell
                             {
 			      buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ) ] ;
