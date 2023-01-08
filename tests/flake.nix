@@ -17,7 +17,6 @@
                     test-utils.lib
                     strip
                     (
-                    (
                       test :
                         {
                           happy = test "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" ;
