@@ -3,7 +3,7 @@
         {
           flake-utils.url = "github:numtide/flake-utils" ;
           strip.url = "/home/runner/work/strip/strip" ;
-          test-utils.url = "/home/runner/work/strip/strip/base" ;
+          test-utils.url = "/home/runner/work/strip/strip/tests/base" ;
         } ;
       outputs =
         { self , nixpkgs , flake-utils , strip , test-utils } :
