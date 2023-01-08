@@ -30,5 +30,5 @@
 		      ( programs.versions.flake-utils "5aed5285a952e0b949eb3ba02c12fa4fcfef535f" )
                     ]
                 )
-          )
+          ) ;
     }
