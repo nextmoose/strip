@@ -99,7 +99,7 @@
                                   mapper =
                                     name : value :
                                       pkgs.writeShellScriptBin
-                                        "version-${ name }"
+                                        name
                                         ''
                                           OBSERVED="${ value.rev }" &&
                                           EXPECTED="${ _utils.bash-variable "1" }" &&
