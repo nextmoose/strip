@@ -12,7 +12,7 @@
             system :
               {
                 lib =
-                  test : positives : negatives :
+                  test : positives : negatives : hook :
                     {
                       devShell =
                         let
