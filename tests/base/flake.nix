@@ -39,25 +39,7 @@
                                                   testee.url = "${ _utils.bash-variable "PROJECT_DIRECTORY" }" ;
                                                 } ;
                                               outputs =
-                                                { flake-utils,  nixpkgs , self , testee } :
-                                                  {
-                                                    devShell =
-                                                      pkgs.mkShell
-                                                        {
-                                                          buildInputs =
-                                                            [
-                                                              (
-                                                                pkgs.writeShellScriptBin
-                                                                "negative"
-                                                                ''
-                                                                  ${ pkgs.coreutils }/bin/cat <<EOF
-                                                                  ${ value test }
-                                                                  EOF
-                                                                ''
-                                                              )
-                                                            ]
-                                                        } ;
-                                                  } ;
+                                                { flake-utils,  nixpkgs , self , testee } : { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "negative" value ) ] ; } ; }
                                             }
                                           EOF
                                           ) &&
