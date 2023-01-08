@@ -21,7 +21,7 @@
                                   ''
                                     ${ pkgs.coreutils }/bin/cat <<EOF
                                     Hello
-                                    ${ builtins.concatStringsSep "\n" ( builtins.map ( builtins.attrValues ( builtins.mapAttrs ( name : value : "${ name }" ) strip ) ) ) }
+                                    ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( name : value : "${ name }" ) strip ) ) }
                                     ${ if test "A" == "A" then "YES" else "NO" }
                                     EOF
                                   ''
