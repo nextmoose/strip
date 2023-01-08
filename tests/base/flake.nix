@@ -80,7 +80,7 @@
 		            } ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" (                  builtins.concatLists                [ positives ] ) ) ) ] ;
+                              buildInputs = builtins.trace ( builtins.typeOf positives ) [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.concatLists [ positives ] ) ) ) ] ;
                             } ;
                     } ;
               }
