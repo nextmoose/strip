@@ -22,7 +22,7 @@
                                     ${ pkgs.coreutils }/bin/cat <<EOF
                                     Hello
                                     BEFORE
-                                    ${ nixpkgs.url }
+                                    ${ builtins.typeOf nixpkgs }
                                     AFTER
                                     ${ if test "A" == "A" then "YES" else "NO" }
                                     EOF
