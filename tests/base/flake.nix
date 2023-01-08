@@ -35,11 +35,12 @@
                                             {
                                               inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; testee.url = "${ _utils.bash-variable "PROJECT_DIRECTORY" }" ; } ;
                                               outputs =
-                                                { flake-utils , nixpkgs , self , testee } : flake-utils.lib.eachDefaultSystem ( system : { lib = pkgs.makeShell { inputHooks = value ( builtins.getAttr system testee.lib ) ; } ; } ) ;
+                                                { flake-utils , nixpkgs , self , testee } :
+						  flake-utils.lib.eachDefaultSystem ( system : { lib = pkgs.makeShell { inputHooks = value.observed ( builtins.getAttr system testee.lib ) ; } ; } ) ;
                                             }
                                           EOF
                                           ) &&
-                                          OBSERVED="${ value.observed _test }" &&
+                                          OBSERVED="$( ${ pkgs.nix }/bin/nix develop 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                           EXPECTED="${ value.expected }" &&
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                           then
@@ -137,7 +138,7 @@
                             } ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.concatLists [ programs.positives programs.versions ] ) ) ) ] ;
+                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.concatLists [ programs.negatives programs.positives programs.versions ] ) ) ) ] ;
                             } ;
                     } ;
               }
