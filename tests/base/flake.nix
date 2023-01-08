@@ -123,9 +123,12 @@
                                         '' ;
                                   in builtins.mapAttrs mapper test ;
                             } ;
+			    buildInput =
+			      let
+			        in pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) )  ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ) ] ;
+                              buildInputs = [ buildInput ] ;
                             } ;
                     } ;
               }
