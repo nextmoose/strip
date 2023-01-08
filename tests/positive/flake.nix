@@ -22,9 +22,9 @@
                                     ${ pkgs.coreutils }/bin/cat <<EOF
                                     Hello
                                     BEFORE
-                                    ${ builtins.concatStringsSep " \n " ( builtins.attrNames nixpkgs ) }
-				    ${ builtins.toString nixpkgs.narHash }
-				    ${ builtins.toString nixpkgs.rev }
+                                    ${ builtins.concatStringsSep " \n " ( builtins.attrNames strip ) }
+				    ${ builtins.toString strip.narHash }
+				    ${ builtins.toString strip.rev }
                                     AFTER
                                     ${ if test "A" == "A" then "YES" else "NO" }
                                     EOF
