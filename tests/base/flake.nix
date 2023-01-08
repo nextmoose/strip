@@ -79,7 +79,7 @@
                                                 ) &&
                                                 exit 64
                                             '' ;
-                                  in builtins.mapAttrs mapper test ;
+                                  in builtins.attrValues ( builtins.mapAttrs mapper test ) ;
 		            } ;
                           in pkgs.mkShell
                             {
