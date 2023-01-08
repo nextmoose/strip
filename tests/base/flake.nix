@@ -57,7 +57,7 @@
                                         name
                                         ''
                                           OBSERVED="${ builtins.concatStringsSep "," ( builtins.attrNames test ) }" &&
-                                          EXPECTED="${ value.expected }" &&
+                                          EXPECTED="${ value }" &&
                                           if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
                                           then
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
