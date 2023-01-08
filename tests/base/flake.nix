@@ -12,14 +12,14 @@
             system :
               {
                 lib =
-                  test : positives : negatives : hook :
+                  test : positives : negatives :
                     {
                       devShell =
                         let
                           _utils = builtins.getAttr system utils.lib ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           programs =
-                            {
+			    let
                               negatives =
                                 let
                                   mapper =
@@ -122,14 +122,10 @@
                                             exit 64
                                         '' ;
                                   in builtins.mapAttrs mapper test ;
-                            } ;
-			    buildInput =
-			      let
-			        positive = pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ;
-				in builtins.concatLists [ positive ] ;
+                            in builtins.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.attrNames ( builtins.concatLists ( positives ) ) ) ) ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ buildInput ] ;
+                              buildInputs = [ program ] ;
                             } ;
                     } ;
               }

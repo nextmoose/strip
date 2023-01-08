@@ -21,11 +21,5 @@
                 (
                   test : [ ]
                 )
-                (
-                  programs :
-                    [
-		      programs.positives.happy1
-                    ]
-                )
           ) ;
     }
