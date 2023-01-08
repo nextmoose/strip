@@ -21,7 +21,7 @@
                                   ''
                                     ${ pkgs.coreutils }/bin/cat <<EOF
                                     Hello
-                                    ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( name : value : "${ name }" ) strip.inputs.flake-utils ) ) }
+                                    ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( name : value : "${ name }" ) strip.inputs.flake-utils.inputs ) ) }
                                     ${ if test "A" == "A" then "YES" else "NO" }
                                     EOF
                                   ''
