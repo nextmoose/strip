@@ -1,31 +1,38 @@
   {
       inputs =
         {
-          nixpkgs.url = "github:nixos/nixpkgs?rev=57eac89459226f3ec743ffa6bbbc1042f5836843" ;
           flake-utils.url = "github:numtide/flake-utils" ;
           strip.url = "/home/runner/work/strip/strip" ;
+	  test-utils.url = "/home/runner/work/strip/strip/base" ;
         } ;
       outputs =
-        { self , nixpkgs , flake-utils , strip } :
+        { self , nixpkgs , flake-utils , strip , test-utils } :
           flake-utils.lib.eachDefaultSystem
           (
             system :
               {
                 devShell =
-                  let
-                    pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
-                    test = builtins.getAttr system strip.lib ;
-                    in
-                        pkgs.mkShell { buildInputs = [
-                                ( pkgs.writeShellScriptBin "hello"
-                                  ''
-                                    ${ pkgs.coreutils }/bin/cat <<EOF
-                                    Hello
-                                    ${ if test "A" == "A" then "YES" else "NO" }
-                                    EOF
-                                  ''
-                                )
-                        ] ; };
-              }
+		  let
+		    builtins.getAttr
+		      system
+		      test-utils.lib ;
+		      strip
+		      (
+		      (
+		        test :
+		          {
+		            happy = test "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" ;
+			  }
+		      )
+		      (
+		        test : [ ]
+		      )
+		      (
+		        programs :
+			  [
+			    ( programs.positive.happy "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" )
+			  ]
+		      )
+	      } ;
       ) ;
     }
