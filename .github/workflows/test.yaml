@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v18
+    - uses: cachix/install-nix-action@v17
       with:
-        github_access_token: ${{ secrets.TOKEN }}
+        access-tokens = gitub.com=${{ secrets.TOKEN }}
     - name: Build release
       run: cd tests/positive && nix develop --command hello build --release
