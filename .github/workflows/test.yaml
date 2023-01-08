@@ -13,3 +13,4 @@ jobs:
           access-tokens = github.com=${{ secrets.TOKEN }}
     - name: Build release
       run: cd tests && nix develop --command hook build --release
+    -run: pwd
