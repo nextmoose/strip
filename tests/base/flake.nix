@@ -48,7 +48,7 @@
                                             exit 64
                                           fi
                                         '' ;
-                                  in builtins.attrNames ( builtins.mapAttrs mapper positives ) ;
+                                  in builtins.attrValues ( builtins.mapAttrs mapper positives ) ;
                               versions =
                                 let
                                   mapper =
