@@ -77,8 +77,8 @@
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                           then
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                           POSITIVE="GOOD"
-                                           NAME="${ name }"
+                                          POSITIVE="GOOD"
+                                          NAME="${ name }"
                                           HASH="${ _utils.bash-variable "EXPECTED" }"
                                           EOF
                                             )
