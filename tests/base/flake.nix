@@ -56,7 +56,7 @@
                                       pkgs.writeShellScriptBin
                                         name
                                         ''
-                                          OBSERVED="${ builtins.concatStringsSep "," ( builtins.attrNames test ) }" &&
+                                          OBSERVED="${ builtins.getAttr "rev" ( builtins.getAttr name ( builtins.getAttr "inputs" ( builtins.getAttr system test.lib ) ) ) }" &&
                                           EXPECTED="${ value }" &&
                                           if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
                                           then
@@ -76,7 +76,7 @@
                                             ) &&
                                             exit 64
                                         '' ;
-                                  in builtins.attrValues ( builtins.mapAttrs mapper test ) ;
+                                  in builtins.attrValues ( builtins.mapAttrs mapper versions ) ;
                             } ;
                           in pkgs.mkShell
                             {
