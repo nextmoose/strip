@@ -26,6 +26,7 @@
                 (
                   programs :
                     [
+		      program.positive.happy
                     ]
                 )
           ) ;
