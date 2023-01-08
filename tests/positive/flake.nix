@@ -21,9 +21,9 @@
                                   ''
                                     if [ "${ strip.inputs.flake-utils.rev }" == "5aed5285a952e0b949eb3ba02c12fa4fcfef535fX" ]
                                     then
-                                      ${ pkgs.coreutils }/bin/echo The flake-utils version is good
+                                      ${ pkgs.coreutils }/bin/echo The flake-utils version is good ${ strip.inputs.flake-utils.rev }.
                                     else
-                                      ${ pkgs.coreutils }/bin/echo The flake-utils version is bad &&
+                                      ${ pkgs.coreutils }/bin/echo The flake-utils version is bad.  We observed ${ strip.inputs.flake-utils.rev } but we expect 5aed5285a952e0b949eb3ba02c12fa4fcfef535f.  &&
                                       exit 64
                                     fi &&
                                     ${ pkgs.coreutils }/bin/cat <<EOF
