@@ -12,7 +12,7 @@
             system :
               {
                 lib =
-                  test : positives : negatives :
+                  test : versions : positives : negatives :
                     {
                       devShell =
                         let
@@ -53,29 +53,32 @@
                                 let
                                   mapper =
                                     name : value :
-                                      pkgs.writeShellScriptBin
-                                        name
-                                        ''
-                                          OBSERVED="${ value.rev }" &&
-                                          EXPECTED="${ _utils.bash-variable "1" }" &&
-                                          if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
-                                          then
-                                            ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                          VERSION="GOOD"
-                                          NAME="${ name }"
-                                          HASH="${ _utils.bash-variable "EXPECTED" }"
-                                          EOF
-                                            )
-                                          else
-                                            ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                          VERSION="BAD"
-                                          NAME="${ name }"
-                                          OBSERVED="${ _utils.bash-variable "OBSERVED" }"
-                                          EXPECTED="${ _utils.bash-variable "EXPECTED" }"
-                                          EOF
-                                            ) &&
-                                            exit 64
-                                        '' ;
+				      let
+				        revision = builtins.getAttr name test.inputs ;
+                                        in
+					  pkgs.writeShellScriptBin
+                                            name
+                                            ''
+                                              OBSERVED="${ revision.rev }" &&
+                                              EXPECTED="${ value.expected }" &&
+                                              if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
+                                              then
+                                                ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                              VERSION="GOOD"
+                                              NAME="${ name }"
+                                              HASH="${ _utils.bash-variable "EXPECTED" }"
+                                              EOF
+                                                )
+                                              else
+                                                ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                              VERSION="BAD"
+                                              NAME="${ name }"
+                                              OBSERVED="${ _utils.bash-variable "OBSERVED" }"
+                                              EXPECTED="${ _utils.bash-variable "EXPECTED" }"
+                                              EOF
+                                                ) &&
+                                                exit 64
+                                            '' ;
                                   in builtins.mapAttrs mapper test ;
 		            } ;
                           in pkgs.mkShell
