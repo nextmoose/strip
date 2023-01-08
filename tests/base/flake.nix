@@ -19,7 +19,7 @@
                           _utils = builtins.getAttr system utils.lib ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           programs =
-                            let
+                            {
                               negatives =
                                 let
                                   mapper =
@@ -122,10 +122,10 @@
                                             exit 64
                                         '' ;
                                   in builtins.getAttrs ( builtins.mapAttrs mapper test ) ;
-		              in builtins.concatLists [ negatives positives versions ] ;
+		            } ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" programs ) ) ] ;
+                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ) ] ;
                             } ;
                     } ;
               }
