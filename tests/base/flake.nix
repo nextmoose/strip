@@ -125,7 +125,8 @@
                             } ;
 			    buildInput =
 			      let
-			        in pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) )  ;
+			        positive = pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ;
+				in builtins.concatLists [ positive ] ;
                           in pkgs.mkShell
                             {
                               buildInputs = [ buildInput ] ;
