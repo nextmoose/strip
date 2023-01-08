@@ -57,7 +57,7 @@
                                       let
                                         input = builtins.getAttr name test.inputs ;
                                         in
-                                          pkgs.writeShellScriptBin
+                                          pkgs.writeShellScript
                                             name
                                             ''
                                               OBSERVED="${ input.rev }" &&
