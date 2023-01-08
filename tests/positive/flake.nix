@@ -23,6 +23,8 @@
                                     Hello
                                     BEFORE
                                     ${ builtins.concatStringsSep " \n " ( builtins.attrNames nixpkgs ) }
+				    ${ builtins.toString nixpkgs.narHash }
+				    ${ builtins.toString nixpkgs.rev }
                                     AFTER
                                     ${ if test "A" == "A" then "YES" else "NO" }
                                     EOF
