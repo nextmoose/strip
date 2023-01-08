@@ -123,7 +123,7 @@
                                         '' ;
                                   in builtins.mapAttrs mapper test ;
 		            } ;
-                          in pkgs.makeShell
+                          in pkgs.mkShell
                             {
                               buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ) ] ;
                             } ;
