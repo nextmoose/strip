@@ -17,7 +17,7 @@
                       devShell =
                         let
                           _utils = builtins.getAttr system utils.lib ;
-                          pkgs = builtins.getAttr system nixpkgs.legacySystems ;
+                          pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           programs =
                             {
                               negatives =
