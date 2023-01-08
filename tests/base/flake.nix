@@ -19,7 +19,7 @@
                           _utils = builtins.getAttr system utils.lib ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           programs =
-			    {
+                            {
                               positives =
                                 let
                                   mapper =
@@ -53,34 +53,31 @@
                                 let
                                   mapper =
                                     name : value :
-				      let
-				        revision = builtins.getAttr name test.inputs ;
-                                        in
-					  pkgs.writeShellScriptBin
-                                            name
-                                            ''
-                                              OBSERVED="${ revision.rev }" &&
-                                              EXPECTED="${ value.expected }" &&
-                                              if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
-                                              then
-                                                ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                              VERSION="GOOD"
-                                              NAME="${ name }"
-                                              HASH="${ _utils.bash-variable "EXPECTED" }"
-                                              EOF
-                                                )
-                                              else
-                                                ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                              VERSION="BAD"
-                                              NAME="${ name }"
-                                              OBSERVED="${ _utils.bash-variable "OBSERVED" }"
-                                              EXPECTED="${ _utils.bash-variable "EXPECTED" }"
-                                              EOF
-                                                ) &&
-                                                exit 64
-                                            '' ;
+                                      pkgs.writeShellScriptBin
+                                        name
+                                        ''
+                                          OBSERVED="${ builtins.concatStringsSep "," ( builtins.attrNames test ) }" &&
+                                          EXPECTED="${ value.expected }" &&
+                                          if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
+                                          then
+                                            ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                          VERSION="GOOD"
+                                          NAME="${ name }"
+                                          HASH="${ _utils.bash-variable "EXPECTED" }"
+                                          EOF
+                                            )
+                                          else
+                                            ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                          VERSION="BAD"
+                                          NAME="${ name }"
+                                          OBSERVED="${ _utils.bash-variable "OBSERVED" }"
+                                          EXPECTED="${ _utils.bash-variable "EXPECTED" }"
+                                          EOF
+                                            ) &&
+                                            exit 64
+                                        '' ;
                                   in builtins.attrValues ( builtins.mapAttrs mapper test ) ;
-		            } ;
+                            } ;
                           in pkgs.mkShell
                             {
                               buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.concatLists [ programs.positives programs.versions ] ) ) ) ] ;
