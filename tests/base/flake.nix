@@ -64,7 +64,7 @@
                                             exit 64
                                           fi
                                         '' ;
-                                  in builtins.getAttrs ( builtins.mapAttrs mapper ( negatives ( builtins.getAttr system test.lib ) ) ) ;
+                                  in builtins.mapAttrs mapper ( negatives ( builtins.getAttr system test.lib ) ) ;
                               positives =
                                 let
                                   mapper =
@@ -93,7 +93,7 @@
                                             exit 64
                                           fi
                                         '' ;
-                                  in builtins.getAttrs ( builtins.mapAttrs mapper ( positives ( builtins.getAttr system test.lib ) ) ) ;
+                                  in builtins.mapAttrs mapper ( positives ( builtins.getAttr system test.lib ) ) ;
                               versions =
                                 let
                                   mapper =
@@ -121,7 +121,7 @@
                                             ) &&
                                             exit 64
                                         '' ;
-                                  in builtins.getAttrs ( builtins.mapAttrs mapper test ) ;
+                                  in builtins.mapAttrs mapper test ;
 		            } ;
                           in pkgs.mkShell
                             {
