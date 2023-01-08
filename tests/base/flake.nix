@@ -28,6 +28,16 @@
                                       pkgs.writeShellScript
                                         "name"
                                         ''
+                                          cd $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
+                                          ${ pkgs.nix }/bin/nix flake init &&
+                                          ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
+                                            {
+                                              inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; testee.url = "" } ;
+                                              outputs =
+                                                { flake-utils , nixpkgs , self , testee } : flake-utils.lib.eachDefaultSystem ( system : { lib = pkgs.makeShell { inputHooks = value ( builtins.getAttr system testee.lib ) ; } ; } ) ;
+                                            }
+                                          EOF
+                                          ) &&
                                           OBSERVED="${ value.observed _test }" &&
                                           EXPECTED="${ value.expected }" &&
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
