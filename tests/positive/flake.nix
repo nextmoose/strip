@@ -22,7 +22,7 @@
                                     ${ pkgs.coreutils }/bin/cat <<EOF
                                     Hello
                                     BEFORE
-                                    ${ builtins.typeOf nixpkgs }
+                                    ${ builtins.concatStringsSep " ; " ( builtins.attrNames pkgs ) }
                                     AFTER
                                     ${ if test "A" == "A" then "YES" else "NO" }
                                     EOF
