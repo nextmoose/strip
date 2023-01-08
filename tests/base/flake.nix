@@ -37,7 +37,7 @@
                                               outputs =
                                                 { flake-utils , nixpkgs , self , testee } :
 						  flake-utils.lib.eachDefaultSystem
-						    ( system : { lib = pkgs.makeShell { inputHooks = "${ pkgs.coreutils }/bin/echo ${ builtins.hashString "sha256" ( value.observed ( builtins.getAttr system testee.lib ) ) }" ; } ; } ) ;
+						    ( system : { lib = pkgs.makeShell { inputHooks = "${ pkgs.coreutils }/bin/echo ${ value.observed "( builtins.getAttr system testee.lib )" } " ; } ; } )
                                             }
                                           EOF
                                           ) &&
