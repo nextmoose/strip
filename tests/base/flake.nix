@@ -122,7 +122,7 @@
                                             exit 64
                                         '' ;
                                   in builtins.mapAttrs mapper test ;
-                            in builtins.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.attrNames ( builtins.concatLists ( positives ) ) ) ) ;
+                            in pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.attrNames ( builtins.concatLists ( positives ) ) ) ) ;
                           in pkgs.mkShell
                             {
                               buildInputs = [ program ] ;
