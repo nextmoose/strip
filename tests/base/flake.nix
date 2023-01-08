@@ -37,11 +37,11 @@
                                               outputs =
                                                 { flake-utils , nixpkgs , self , testee } :
 						  flake-utils.lib.eachDefaultSystem
-						    ( system : { lib = pkgs.makeShell { inputHooks = "${ pkgs.coreutils }/bin/echo ${ value.observed "( builtins.getAttr system testee.lib )" } " ; } ; } )
+						    ( system : { lib = pkgs.makeShell { buildInputs = [ ( pkgs.writeShellScriptBin "negative" ${ value.observed "( builtins.getAttr system testee.lib )" } ) ] ; } ; } )
                                             }
                                           EOF
                                           ) &&
-                                          OBSERVED="$( ${ pkgs.nix }/bin/nix develop 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
+                                          OBSERVED="$( ${ pkgs.nix }/bin/nix develop --command negative 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                           EXPECTED="${ value.expected }" &&
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                           then
