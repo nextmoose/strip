@@ -43,7 +43,7 @@
                                             }
                                           EOF
                                           ) &&
-                                          OBSERVED="$( ${ pkgs.nix }/bin/nix develop 2> >( ${ pkgs.coreutils }/bin/tee ) &&
+                                          OBSERVED="$( ${ pkgs.nix }/bin/nix develop 2> >( ${ pkgs.coreutils }/bin/tee ) ) &&
                                           EXPECTED="${ _utils.bash-variable "1" }" &&
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                           then
@@ -121,8 +121,8 @@
                                             ) &&
                                             exit 64
                                         '' ;
-                                } ;
-                              in builtins.mapAttrs mapper test ;
+                                  in builtins.mapAttrs mapper test ;
+		            } ;
                           in pkgs.makeShell
                             {
                               buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ) ] ;
