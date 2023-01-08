@@ -33,14 +33,18 @@
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                           then
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                          POSITIVE="GOOD"
+                                          #
+                                          TEST="GOOD"
+                                          TYPE="POSITIVE"
                                           NAME="${ name }"
                                           HASH="${ _utils.bash-variable "EXPECTED" }"
                                           EOF
                                             )
                                           else
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                          POSITIVE="BAD"
+                                          #
+                                          TEST="BAD"
+                                          TYPE="POSITIVE"
                                           NAME="${ name }"
                                           OBSERVED="${ _utils.bash-variable "OBSERVED" }"
                                           EXPECTED="${ _utils.bash-variable "EXPECTED" }"
@@ -65,14 +69,18 @@
                                               if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
                                               then
                                                 ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                              VERSION="GOOD"
+                                              #
+                                              TEST="GOOD"
+                                              TYPE="VERSION"
                                               NAME="${ name }"
                                               HASH="${ _utils.bash-variable "EXPECTED" }"
                                               EOF
                                                 )
                                               else
                                                 ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                              VERSION="BAD"
+                                              #
+                                              TEST="GOOD"
+                                              TYPE="VERSION"
                                               NAME="${ name }"
                                               OBSERVED="${ _utils.bash-variable "OBSERVED" }"
                                               EXPECTED="${ _utils.bash-variable "EXPECTED" }"
