@@ -16,6 +16,7 @@
                     {
                       devShell =
                         let
+			  _test = builtins.getAttr system test.lib ;
                           _utils = builtins.getAttr system utils.lib ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           programs =
@@ -27,7 +28,7 @@
                                       pkgs.writeShellScript
                                         "name"
                                         ''
-                                          OBSERVED="${ value.observed ( builtins.getAttr system test.lib ) }" &&
+                                          OBSERVED="${ value.observed _test }" &&
                                           EXPECTED="${ value.expected }" &&
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                           then
@@ -53,29 +54,32 @@
                                 let
                                   mapper =
                                     name : value :
-                                      pkgs.writeShellScriptBin
-                                        name
-                                        ''
-                                          OBSERVED="${ builtins.getAttr "rev" ( builtins.getAttr name ( builtins.getAttr "inputs" ( builtins.getAttr system test.lib ) ) ) }" &&
-                                          EXPECTED="${ value }" &&
-                                          if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
-                                          then
-                                            ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                          VERSION="GOOD"
-                                          NAME="${ name }"
-                                          HASH="${ _utils.bash-variable "EXPECTED" }"
-                                          EOF
-                                            )
-                                          else
-                                            ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                          VERSION="BAD"
-                                          NAME="${ name }"
-                                          OBSERVED="${ _utils.bash-variable "OBSERVED" }"
-                                          EXPECTED="${ _utils.bash-variable "EXPECTED" }"
-                                          EOF
-                                            ) &&
-                                            exit 64
-                                        '' ;
+				      let
+				        input = builtins.getAttr name test.inputs ;
+                                        in
+					  pkgs.writeShellScriptBin
+                                            name
+                                            ''
+                                              OBSERVED="${ input.rev }" &&
+                                              EXPECTED="${ value }" &&
+                                              if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
+                                              then
+                                                ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                              VERSION="GOOD"
+                                              NAME="${ name }"
+                                              HASH="${ _utils.bash-variable "EXPECTED" }"
+                                              EOF
+                                                )
+                                              else
+                                                ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                              VERSION="BAD"
+                                              NAME="${ name }"
+                                              OBSERVED="${ _utils.bash-variable "OBSERVED" }"
+                                              EXPECTED="${ _utils.bash-variable "EXPECTED" }"
+                                              EOF
+                                                ) &&
+                                                exit 64
+                                            '' ;
                                   in builtins.attrValues ( builtins.mapAttrs mapper versions ) ;
                             } ;
                           in pkgs.mkShell
