@@ -22,7 +22,7 @@
 			  m = n - 1 ;
 			  prepend = builtins.substring 0 m string ;
 		          whitespace = [ " " "\t" "\n" "\r" "\v" ] ;
-			  in if is-prepended then strip append else if is-appended then strip prepend else string ;
+			  in if builtins.typeOf string == "string" then if is-prepended then strip append else if is-appended then strip prepend else string else builtins.throw "668ec04c-a40c-45bc-b66d-de439acf4384" ;
 		    in string : strip string ;
               }
       ) ;
