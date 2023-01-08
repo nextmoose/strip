@@ -66,14 +66,14 @@
                                         '' ;
                                   in builtins.mapAttrs mapper ( negatives ( builtins.getAttr system test.lib ) ) ;
                               positives =
-                                let
+_                                let
                                   mapper =
                                     name : value :
                                       pkgs.writeShellScript
                                         "name"
                                         ''
-                                          OBSERVED="${ value }" &&
-                                          EXPECTED="${ _utils.bash-variable "1" }" &&
+                                          OBSERVED="${ value.observed ( builtins.getAttr system test.lib ) }" &&
+                                          EXPECTED="${ value.expected }" &&
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                           then
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
@@ -93,7 +93,7 @@
                                             exit 64
                                           fi
                                         '' ;
-                                  in builtins.mapAttrs mapper ( positives ( builtins.getAttr system test.lib ) ) ;
+                                  in builtins.mapAttrs mapper positives ;
                               versions =
                                 let
                                   mapper =
