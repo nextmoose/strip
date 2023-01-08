@@ -1,4 +1,4 @@
-name: "Test"
+.name: "Test"
 on:
   pull_request:
   push:
@@ -9,7 +9,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: cachix/install-nix-action@v17
       with:
-      	extra_nix_config: |
-          access-tokens = gitub.com=${{ secrets.TOKEN }}
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.TOKEN }}
     - name: Build release
       run: cd tests/positive && nix develop --command hello build --release
