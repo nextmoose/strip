@@ -3,7 +3,7 @@
         {
           flake-utils.url = "github:numtide/flake-utils" ;
           strip.url = "/home/runner/work/strip/strip" ;
-	  test-utils.url = "/home/runner/work/strip/strip/base" ;
+          test-utils.url = "/home/runner/work/strip/strip/base" ;
         } ;
       outputs =
         { self , nixpkgs , flake-utils , strip , test-utils } :
@@ -12,27 +12,27 @@
             system :
               {
                 devShell =
-		  let
-		    builtins.getAttr
-		      system
-		      test-utils.lib ;
-		      strip
-		      (
-		      (
-		        test :
-		          {
-		            happy = test "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" ;
-			  }
-		      )
-		      (
-		        test : [ ]
-		      )
-		      (
-		        programs :
-			  [
-			    ( programs.positive.happy "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" )
-			  ]
-		      )
-	      } ;
+                  let
+                    builtins.getAttr
+                      system
+                      test-utils.lib
+                      strip
+                      (
+                      (
+                        test :
+                          {
+                            happy = test "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" ;
+                          }
+                      )
+                      (
+                        test : [ ]
+                      )
+                      (
+                        programs :
+                          [
+                            ( programs.positive.happy "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" )
+                          ]
+                      )
+              } ;
       ) ;
     }
