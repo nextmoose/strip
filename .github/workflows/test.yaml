@@ -11,6 +11,6 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.TOKEN }}
-    - run: ls -alh /home/runner/work/
+    - run: ls -alh /home/runner/work/strip/strip
     - name: Build release
       run: cd tests && nix develop --command hello build --release
