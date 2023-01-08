@@ -18,7 +18,7 @@
                         let
                           _utils = builtins.getAttr system utils.lib ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
-                          programs =
+                          program =
 			    let
                               negatives =
                                 let
