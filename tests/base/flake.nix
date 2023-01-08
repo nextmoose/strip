@@ -66,7 +66,7 @@
                                         '' ;
                                   in builtins.mapAttrs mapper ( negatives ( builtins.getAttr system test.lib ) ) ;
                               positives =
-_                                let
+_                              let
                                   mapper =
                                     name : value :
                                       pkgs.writeShellScript
@@ -122,7 +122,7 @@ _                                let
                                             exit 64
                                         '' ;
                                   in builtins.mapAttrs mapper test ;
-		            } ;
+                            } ;
                           in pkgs.mkShell
                             {
                               buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( hook programs ) ) ) ] ;
