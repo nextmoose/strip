@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: nixos
     steps:
-    - run: cd util/version && nix develop --command versions
+    - run: cd util/test-version && nix develop --command test
   positives:
     runs-on: ubuntu-latest
     needs: nixos
     steps:
-      - run: pwd
+      - run: cd util/test-positives && nix develop --command test
   negatives:
     runs-on: ubuntu-latest
     needs: nixos
