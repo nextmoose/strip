@@ -54,7 +54,8 @@
                                     '' ;
                           in pkgs.mkShell
                             {
-                              buildInputs =
+			      buildInputs = [ ( pkgs.writeShellScriptBin "test" "" ) ] ;
+                              buildInputs2 =
                                 [ ( pkgs.writeShellScriptBin "test" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) ) ) ] ;
                             } ;
                     } ;
