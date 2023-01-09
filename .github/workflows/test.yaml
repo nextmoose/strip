@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
 jobs:
-  tests:
+  nixos:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -11,5 +11,15 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.TOKEN }}
-    - name: Build release
-      run: cd tests && nix develop --command hook build --release
+  versions:
+    needs: nixos
+    steps:
+    - run: pwd
+  positive:
+    needs: nixos
+    steps:
+      - run: pwd
+  negative:
+    needs: nixos
+    steps:
+      - run: pwd
