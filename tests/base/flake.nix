@@ -31,6 +31,8 @@
                                           ${ pkgs.coreutils }/bin/echo 4141181e-ff52-443b-921a-3564d212348c &&
                                           PROJECT_DIRECTORY=$( ${ pkgs.coreutils }/bin/pwd ) &&
                                           ${ pkgs.coreutils }/bin/echo 42e3f28d-328d-4f5e-8919-6ffdbe89aaa8 &&
+                                          cd $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
+                                          ${ pkgs.coreutils }/bin/echo 1ebabaa8-1c7d-4918-9a28-c2e4131f1f5a &&
                                           ${ pkgs.coreutils }/bin/true
                                         '' ;
                                   in builtins.attrValues ( builtins.mapAttrs mapper negatives ) ;
