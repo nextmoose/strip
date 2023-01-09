@@ -26,7 +26,7 @@
                                   mapper =
                                     name : value :
                                       pkgs.writeShellScript
-                                        "name"
+                                        name
                                         ''
                                           PROJECT_DIRECTORY=$( ${ pkgs.coreutils }/bin/pwd ) &&
                                           cd $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
@@ -76,7 +76,7 @@
                                   mapper =
                                     name : value :
                                       pkgs.writeShellScript
-                                        "name"
+                                        name
                                         ''
                                           OBSERVED="${ value.observed _test }" &&
                                           EXPECTED="${ value.expected }" &&
