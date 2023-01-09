@@ -33,17 +33,6 @@
                                           cd $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
                                           ${ pkgs.nix }/bin/nix flake init &&
                                           ${ pkgs.coreutils }/bin/echo b2a86e6d-a4a0-4a69-b4d9-9a3f8b9294ee &&
-                                          ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
-                                            {
-                                              inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; testee.url = "${ _utils.bash-variable "PROJECT_DIRECTORY" }" ; } ;
-                                              outputs =
-                                                { flake-utils , nixpkgs , self , testee } :
-                                                  flake-utils.lib.eachDefaultSystem
-                                                    ( system : { lib = pkgs.makeShell { buildInputs = [ ( pkgs.writeShellScriptBin "negative" ${ value.observed "( builtins.getAttr system testee.lib )" } ) ] ; } ; } )
-                                            }
-                                          EOF
-                                          ) &&
-                                          ${ pkgs.coreutils }/bin/echo 27813b3c-c068-4b34-ad23-7139d5d0fc5f &&
                                           ${ pkgs.coreutils }/bin/true
                                         '' ;
                                   in builtins.attrValues ( builtins.mapAttrs mapper negatives ) ;
