@@ -28,12 +28,9 @@
                                       pkgs.writeShellScript
                                         name
                                         ''
+                                          ${ pkgs.coreutils }/bin/echo 4141181e-ff52-443b-921a-3564d212348c &&
                                           PROJECT_DIRECTORY=$( ${ pkgs.coreutils }/bin/pwd ) &&
                                           ${ pkgs.coreutils }/bin/echo 42e3f28d-328d-4f5e-8919-6ffdbe89aaa8 &&
-                                          ${ pkgs.coreutils }/mkdir temp &&
-					  cd temp &&
-                                          ${ pkgs.coreutils }/bin/echo ${ pkgs.nix }/bin/nix flake init &&
-                                          ${ pkgs.coreutils }/bin/echo b2a86e6d-a4a0-4a69-b4d9-9a3f8b9294ee &&
                                           ${ pkgs.coreutils }/bin/true
                                         '' ;
                                   in builtins.attrValues ( builtins.mapAttrs mapper negatives ) ;
