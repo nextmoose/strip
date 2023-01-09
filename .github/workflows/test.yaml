@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: nixos
     steps:
-    - run: pwd
-  positive:
+    - run: cd util/version && nix develop --command versions
+  positives:
     runs-on: ubuntu-latest
     needs: nixos
     steps:
       - run: pwd
-  negative:
+  negatives:
     runs-on: ubuntu-latest
     needs: nixos
     steps:
