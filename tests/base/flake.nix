@@ -30,7 +30,8 @@
                                         ''
                                           PROJECT_DIRECTORY=$( ${ pkgs.coreutils }/bin/pwd ) &&
                                           ${ pkgs.coreutils }/bin/echo 42e3f28d-328d-4f5e-8919-6ffdbe89aaa8 &&
-                                          cd $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
+                                          ${ pkgs.coreutils }/mkdir temp &&
+					  cd temp &&
                                           ${ pkgs.coreutils }/bin/echo ${ pkgs.nix }/bin/nix flake init &&
                                           ${ pkgs.coreutils }/bin/echo b2a86e6d-a4a0-4a69-b4d9-9a3f8b9294ee &&
                                           ${ pkgs.coreutils }/bin/true
