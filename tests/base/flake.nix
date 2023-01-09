@@ -45,6 +45,7 @@
 					  ${ pkgs.coreutils }/bin/pwd &&
 					  ${ pkgs.coreutils }/bin/cat flake.nix &&
 					  ${ pkgs.coreutils }/bin/echo END &&
+					  exit 64 &&
                                           OBSERVED="$( ${ pkgs.nix }/bin/nix develop --command negative 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                           EXPECTED="${ value.expected }" &&
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
