@@ -28,7 +28,7 @@
                                       pkgs.writeShellScript
                                         "name"
                                         ''
-					  PROJECT_DIRECTORY=$( ${ pkgs.coreutils }/bin/pwd ) &&
+                                          PROJECT_DIRECTORY=$( ${ pkgs.coreutils }/bin/pwd ) &&
                                           cd $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
                                           ${ pkgs.nix }/bin/nix flake init &&
                                           ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
@@ -36,8 +36,8 @@
                                               inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; testee.url = "${ _utils.bash-variable "PROJECT_DIRECTORY" }" ; } ;
                                               outputs =
                                                 { flake-utils , nixpkgs , self , testee } :
-						  flake-utils.lib.eachDefaultSystem
-						    ( system : { lib = pkgs.makeShell { buildInputs = [ ( pkgs.writeShellScriptBin "negative" ${ value.observed "( builtins.getAttr system testee.lib )" } ) ] ; } ; } )
+                                                  flake-utils.lib.eachDefaultSystem
+                                                    ( system : { lib = pkgs.makeShell { buildInputs = [ ( pkgs.writeShellScriptBin "negative" ${ value.observed "( builtins.getAttr system testee.lib )" } ) ] ; } ; } )
                                             }
                                           EOF
                                           ) &&
