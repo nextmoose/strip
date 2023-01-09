@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: nixos
     steps:
-    - run: cd util/test-version && nix develop --command test
+    - run: cd util/test-versions && nix develop --command test
   positives:
     runs-on: ubuntu-latest
     needs: nixos
