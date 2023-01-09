@@ -58,7 +58,7 @@
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
                                           #
                                           TEST="GOOD"
-                                          TYPE="POSITIVE"
+                                          TYPE="NEGATIVE"
                                           NAME="${ name }"
                                           HASH="${ _utils.bash-variable "EXPECTED" }"
                                           EOF
@@ -67,7 +67,7 @@
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
                                           #
                                           TEST="BAD"
-                                          TYPE="POSITIVE"
+                                          TYPE="NEGATIVE"
                                           NAME="${ name }"
                                           OBSERVED="${ _utils.bash-variable "OBSERVED" }"
                                           EXPECTED="${ _utils.bash-variable "EXPECTED" }"
@@ -149,7 +149,7 @@
                             } ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.concatLists [ programs.positives programs.versions ] ) ) ) ] ;
+                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.concatLists [ programs.negatives programs.positives programs.versions ] ) ) ) ] ;
                             } ;
                     } ;
               }
