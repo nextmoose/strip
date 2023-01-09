@@ -46,15 +46,13 @@
                                           EOF
                                           ) &&
                                           ${ pkgs.coreutils }/bin/echo 27813b3c-c068-4b34-ad23-7139d5d0fc5f &&
-                                          ${ pkgs.coreutils }/bin/echo BEGIN &&
-                                          ${ pkgs.coreutils }/bin/pwd &&
-                                          ${ pkgs.coreutils }/bin/cat flake.nix &&
-                                          ${ pkgs.coreutils }/bin/echo END &&
-                                          exit 64 &&
                                           OBSERVED="$( ${ pkgs.nix }/bin/nix develop --command negative 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
+					  echo 1a0b15f9-0b5e-4b16-9de8-e803ca2ad5b6 &&
                                           EXPECTED="${ value.expected }" &&
+					  echo 73757753-5d58-4f58-a4c5-2df28222a6b3 &&
                                           if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                           then
+					    echo 865dace4-97ad-4703-8ba0-113b7f3d9bbc &&
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
                                           #
                                           TEST="GOOD"
@@ -62,8 +60,10 @@
                                           NAME="${ name }"
                                           HASH="${ _utils.bash-variable "EXPECTED" }"
                                           EOF
-                                            )
-                                          else
+                                            ) &&
+ 					    echo ce6b472a-bf17-46dc-86f9-a1ab0a608c8d
+					  else
+					    echo 07fc97dc-e262-418a-b156-1b768c92aa76 &&
                                             ( ${ pkgs.coreutils }/bin/cat <<EOF
                                           #
                                           TEST="BAD"
@@ -73,8 +73,10 @@
                                           EXPECTED="${ _utils.bash-variable "EXPECTED" }"
                                           EOF
                                             ) &&
-                                            exit 64
-                                          fi
+                                            exit 64 &&
+					    echo 663d025b-6d13-46d3-830b-795da353f1e4 &&
+     					  fi &&
+					  echo deee29c9-c687-46e8-90c3-4479aef4f8b6
                                         '' ;
                                   in builtins.attrValues ( builtins.mapAttrs mapper negatives ) ;
                               negatives2 =
