@@ -49,7 +49,6 @@
                                     exit 64
                                   fi
                                 '' ;
-                              in builtins.attrValues ( builtins.mapAttrs mapper positives ) ;
                           in pkgs.mkShell
                             {
                               buildInputs =
