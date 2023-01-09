@@ -12,7 +12,7 @@
             system :
               {
                 lib =
-                  test : versions : positives : negatives :
+                  test : versions :
                     {
                       devShell =
                         let
