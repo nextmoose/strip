@@ -149,7 +149,7 @@
                             } ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.concatLists [ programs.negatives programs.positives programs.versions ] ) ) ) ] ;
+                              buildInputs = [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.concatLists [ programs.positives programs.versions ] ) ) ) ] ;
                             } ;
                     } ;
               }
