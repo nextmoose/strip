@@ -53,7 +53,6 @@
                                       fi
                                     '' ;
                                 in builtins.attrValues ( builtins.mapAttrs mapper versions ) ;
-                            } ;
                           in pkgs.mkShell
                             {
                               buildInputs =
