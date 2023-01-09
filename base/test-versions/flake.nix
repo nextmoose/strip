@@ -54,7 +54,7 @@
                                     '' ;
                           in pkgs.mkShell
                             {
-			      buildInputs = [ ( builtins.trace ( "YES - ${ builtins.typeOf versions } - ${ builtins.typeOf ( builtins.mapAttrs mapper versions ) } - ${ builtins.typeOf ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) } - ${ builtins.typeOf ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) ) }\n\n ${ builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) " ) ( pkgs.writeShellScriptBin "test" "" ) ) ] ;
+			      buildInputs = [ ( builtins.trace ( "YES - ${ builtins.typeOf versions } - ${ builtins.typeOf ( builtins.mapAttrs mapper versions ) } - ${ builtins.typeOf ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) } - ${ builtins.typeOf ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) ) }\n\n ${ builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) } " ) ( pkgs.writeShellScriptBin "test" "" ) ) ] ;
                               buildInputs2 =
                                 [ ( pkgs.writeShellScriptBin "test" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) ) ) ] ;
                             } ;
