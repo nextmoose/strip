@@ -74,7 +74,7 @@
                                           EOF
                                             ) &&
                                             exit 64 &&
-                                            echo 663d025b-6d13-46d3-830b-795da353f1e4 &&
+                                            echo 663d025b-6d13-46d3-830b-795da353f1e4
                                           fi &&
                                           echo deee29c9-c687-46e8-90c3-4479aef4f8b6
                                         '' ;
