@@ -53,7 +53,7 @@
                           in pkgs.mkShell
                             {
                               buildInputs =
-                                [ ( pkgs.writeShellScriptBin "hook" ( builtins.concatStringsSep " &&\n" ( builtins.attrNames ( builtins.mapAttrs mapper positives ) ) ) ) ] ;
+                                [ ( pkgs.writeShellScriptBin "test" ( builtins.concatStringsSep " &&\n" ( builtins.attrNames ( builtins.mapAttrs mapper positives ) ) ) ) ] ;
                             } ;
                     } ;
               }
