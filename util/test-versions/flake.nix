@@ -7,7 +7,7 @@
           nixpkgs.url = "github:nixos/nixpkgs" ;
         } ;
       outputs =
-        { self , flake-utils , strip , test-utils } :
+        { self , flake-utils , strip , test-utils , nixpkgs } :
           flake-utils.lib.eachDefaultSystem
           (
             system :
