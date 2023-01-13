@@ -13,7 +13,10 @@
             system :
               let
                 pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
-                in pkgs.makeShell { buildInputs = [ ( pkgs.writeShellScriptBin "test" "${ pkgs.coreutils }/bin/echo YES" ) ] ; }
+                in
+		  {
+		    devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "test" "${ pkgs.coreutils }/bin/echo YES" ) ] ; } ;
+		  }
               # builtins.getAttr
               #  system
               #  test-utils.lib
