@@ -3,11 +3,11 @@
         {
           flake-utils.url = "github:numtide/flake-utils" ;
           strip.url = "/home/runner/work/strip/strip" ;
-          test-utils.url = "/home/runner/work/strip/strip/base/test-versions" ;
+          # test-utils.url = "/home/runner/work/strip/strip/base/test-versions" ;
           nixpkgs.url = "github:nixos/nixpkgs" ;
         } ;
       outputs =
-        { self , flake-utils , strip , test-utils , nixpkgs } :
+        { self , flake-utils , strip , nixpkgs } :
           flake-utils.lib.eachDefaultSystem
           (
             system :
