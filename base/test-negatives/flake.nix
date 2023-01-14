@@ -17,6 +17,35 @@
                       devShell =
                         let
                           _utils = builtins.getAttr system utils.lib ;
+                          flake =
+                            name : value :
+                              ''
+                                {
+                                  inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; test = "/home/runner/work/strip/strip" ; } ;
+                                  outputs =
+                                    { self , flake-utils , nixpkgs , test } :
+                                    flake-utils.lib.eachDefaultSystem
+                                      (
+                                        system :
+                                          let
+                                            pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
+                                            in
+                                              pkgs.mkShell
+                                                {
+                                                  buildInputs =
+                                                    [
+                                                      (
+                                                        pkgs.writeShellScriptBin
+                                                          "check"
+                                                          ''
+                                                            # THIS SHOULD NOT COMPILE
+                                                          ''
+                                                      )
+                                                    ] ;
+                                                }
+                                      ) ;
+                                } ;
+                              '' ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           mapper =
                             name : value :
@@ -25,34 +54,7 @@
                                 ''
                                   cd $( ${ pkgs.coreutils }/bin/mktemp --directory ) &&
                                   ${ pkgs.nix }/bin/nix flake init &&
-                                  ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
-                                  {
-                                    inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; test = "/home/runner/work/strip/strip" ; } ;
-                                    outputs =
-                                      { self , flake-utils , nixpkgs , test } :
-                                      flake-utils.lib.eachDefaultSystem
-                                        (
-                                          system :
-                                            let
-                                              pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
-                                              in
-                                                pkgs.mkShell
-                                                  {
-                                                    buildInputs =
-                                                      [
-                                                        (
-                                                          pkgs.writeShellScriptBin
-                                                            "check"
-                                                            ''
-                                                              # THIS SHOULD NOT COMPILE
-                                                            ''
-                                                        )
-                                                      ] ;
-                                                  }
-                                        ) ;
-                                  }
-                                  EOF
-                                  ) &&
+                                  ( ${ pkgs.coreutils }/bin/cat ${ builtins.toFile "flake" ( flake name value ) } > flake.nix &&
                                   ${ pkgs.coreutils }/bin/cat flake.nix &&
                                   ! OBSERVED="$( ${ builtins.trace "YES" pkgs.nix }/bin/nix develop --command check 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
