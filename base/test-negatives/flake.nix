@@ -40,6 +40,7 @@
                                   }
                                   EOF
                                   ) &&
+                                  ${ pkgs.coreutils }/bin/cat flake.nix &&
                                   ! OBSERVED="$( ${ builtins.trace "YES" pkgs.nix }/bin/nix develop --command check > >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
