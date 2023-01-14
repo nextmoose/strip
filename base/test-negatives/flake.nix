@@ -28,7 +28,7 @@
                                       (
                                         system :
                                           let
-                                            pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
+                                            pkgs = ( builtins.trace ( builtins.concatStringsSep " , " ( builtins.attrNames nixpkgs ) ) ( builtins.getAttr system nixpkgs.legacyPackages ) ;
                                             in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; }
                                       ) ;
                                 }
