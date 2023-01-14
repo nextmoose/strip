@@ -13,4 +13,4 @@ jobs:
           access-tokens = github.com=${{ secrets.TOKEN }}
     - run: cd util/test-versions && cat flake.nix
     - run: cd util/test-versions && echo nix develop --command test
-    - run: cd util/test-versions && echo develop --command test
+    - run: cd util/test-versions && nix develop --command test
