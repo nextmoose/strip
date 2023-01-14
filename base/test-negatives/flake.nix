@@ -30,7 +30,7 @@
                                           let
                                             pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
 					    testee = builtins.getAttr system test.lib ;
-                                            in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" ${ value.observed "( testee )" } ) ] ; }
+                                            in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "\${ ${ builtins.observed } "( testee )" }" ] ; }
                                       ) ;
                                 }
                               '' ;
