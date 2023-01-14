@@ -23,7 +23,7 @@
                               pkgs.writeShellScript
                                 name
                                 ''
-                                  OBSERVED="${ value.observed _test }" &&
+                                  OBSERVED="${ value.observed "test" }" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                   then
