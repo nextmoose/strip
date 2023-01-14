@@ -24,17 +24,30 @@
                                 name
                                 ''
                                   cd $( ${ pkgs.coreutils }/bin/mktemp --directory ) &&
+                                  ${ pkgs.nix }/bin/nix flake init &&
                                   ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
+                                  {
+                                    input = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpckgs" ; test = "" ; } ;
+                                    output =
+                                      { self , flake-utils , nixpkgs } :
+                                      flake-utils.lib.eachDefaultSystem
+                                        (
+                                          system :
+                                            let
+                                              pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
+                                              in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" ${ value.observed "test" } ) ] ; }
+                                        )
+                                  }
                                   EOF
                                   ) &&
-                                  OBSERVED="${ value.observed "test" }" &&
+                                  ! OBSERVED="$( ${ pkgs.nix }/nix develop --command check )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                   then
                                     ( ${ pkgs.coreutils }/bin/cat <<EOF
                                   #
                                   TEST="GOOD"
-                                  TYPE="POSITIVE"
+                                  TYPE="NEGATIVE"
                                   NAME="${ name }"
                                   HASH="${ _utils.bash-variable "EXPECTED" }"
                                   EOF
@@ -43,7 +56,7 @@
                                     ( ${ pkgs.coreutils }/bin/cat <<EOF
                                   #
                                   TEST="BAD"
-                                  TYPE="POSITIVE"
+                                  TYPE="NEGATIVE"
                                   NAME="${ name }"
                                   OBSERVED="${ _utils.bash-variable "OBSERVED" }"
                                   EXPECTED="${ _utils.bash-variable "EXPECTED" }"
