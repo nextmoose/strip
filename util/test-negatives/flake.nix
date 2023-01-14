@@ -13,8 +13,8 @@
                 system
                 test-utils.lib
                 {
-		  sad1 = { observed = "bad 1" ; expected = test : "${ test } null" ; } ;
-		  sad2 = { observed = "bad 2" ; expected = test : "${ test } null" ; } ;
+		  sad1 = { expected = "bad 1" ; observed = test : "${ test } null" ; } ;
+		  sad2 = { expected = "bad 2" ; observed = test : "${ test } null" ; } ;
                 }
           ) ;
     }
