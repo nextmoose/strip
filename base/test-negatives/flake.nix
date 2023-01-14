@@ -29,17 +29,7 @@
                                         system :
                                           let
                                             pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
-                                            in
-                                              pkgs.mkShell
-                                                {
-                                                  buildInputs =
-                                                    [
-                                                      (
-                                                        pkgs.writeShellScriptBin
-                                                          "check" "# THIS SHOULD NOT COMPILE"
-                                                      )
-                                                    ] ;
-                                                }
+                                            in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; }
                                       ) ;
                                 } ;
                               '' ;
