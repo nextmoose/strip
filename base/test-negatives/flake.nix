@@ -31,7 +31,7 @@
                                             pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
                                             in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; }
                                       ) ;
-                                } ;
+                                }
                               '' ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           mapper =
