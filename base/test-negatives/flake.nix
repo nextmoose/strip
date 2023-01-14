@@ -44,7 +44,7 @@
                                                           pkgs.writeShellScriptBin
                                                             "check"
                                                             ''
-                                                              ( ${ pkgs.coreutils }/bin/cat
+                                                              ( \${ pkgs.coreutils }/bin/cat
                                                                 We should not be able to compute this negative value.
                                                                 name
                                                                 BEGIN
