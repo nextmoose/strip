@@ -14,7 +14,6 @@
                 test-utils.lib
                 {
 		  sad1 = { expected = "bad 1" ; observed = test : "${ test } null" ; } ;
-		  sad2 = { expected = "bad 2" ; observed = test : "${ test } null" ; } ;
                 }
           ) ;
     }

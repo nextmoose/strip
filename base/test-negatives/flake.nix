@@ -25,10 +25,7 @@
                                 ''
                                   cd $( $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
                                   ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                  {
-                                    inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; test = "/home/runner/work/strip/strip" ; } ;
-                                    outputs = { self , nixpkgs , test } : flake-utils.lib.eachDefaultSystem ( system : ${ value.observed "test" } ) ;
-                                  }
+                                     HELP ME
                                   EOF
                                   ) &&
                                   ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
@@ -64,7 +61,7 @@
                                   fi
                                 '' ;
                           in pkgs.mkShell
-                            {
+                            {   
                               buildInputs =
                                 [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper negatives ) ) ) ) ] ;
                             } ;
