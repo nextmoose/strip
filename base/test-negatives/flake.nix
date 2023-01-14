@@ -12,11 +12,10 @@
             system :
               {
                 lib =
-                  test : positives :
+                  negatives :
                     {
                       devShell =
                         let
-                          _test = builtins.getAttr system test.lib ;
                           _utils = builtins.getAttr system utils.lib ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           mapper =
@@ -24,14 +23,22 @@
                               pkgs.writeShellScript
                                 name
                                 ''
-                                  OBSERVED="${ value.observed _test }" &&
+				  cd $( $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
+				  ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
+				  {
+				    inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; test = "/home/runner/work/strip/strip" ; } ;
+				    outputs = { self , nixpkgs , test } : flake-utils.lib.eachDefaultSystem ( system : ${ value.observed "test" } )
+				  }
+				  EOF
+				  ) &&
+                                  ! OBSERVED="$( ${ pkgs.nix }/bin/nix develop --command check > >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                   then
                                     ( ${ pkgs.coreutils }/bin/cat <<EOF
                                   #
                                   TEST="GOOD"
-                                  TYPE="POSITIVE"
+                                  TYPE="NEGATIVE"
                                   NAME="${ name }"
                                   HASH="${ _utils.bash-variable "EXPECTED" }"
                                   EOF
@@ -40,7 +47,7 @@
                                     ( ${ pkgs.coreutils }/bin/cat <<EOF
                                   #
                                   TEST="BAD"
-                                  TYPE="POSITIVE"
+                                  TYPE="NEGATIVE"
                                   NAME="${ name }"
                                   OBSERVED="${ _utils.bash-variable "OBSERVED" }"
                                   EXPECTED="${ _utils.bash-variable "EXPECTED" }"
@@ -52,7 +59,7 @@
                           in pkgs.mkShell
                             {
                               buildInputs =
-                                [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper positives ) ) ) ) ] ;
+                                [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper negatives ) ) ) ) ] ;
                             } ;
                     } ;
               }

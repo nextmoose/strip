@@ -15,8 +15,8 @@
                 test-utils.lib
                 strip
                 {
-                  happy1 = { observed = test : test "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" ; expected = "c41f3ec5-a370-4fce-9b87-63203e0cdd2a" ; } ;
-                  happy2 = { observed = test : test "d87b11cc-ed4f-41e6-92b6-fc48371dd5c8" ; expected = "d87b11cc-ed4f-41e6-92b6-fc48371dd5c8" ; } ;
+		  sad1 = { observed = "bad 1" ; expected = test : "${ test } null" ; } ;
+		  sad2 = { observed = "bad 2" ; expected = test : "${ test } null" ; } ;
                 }
           ) ;
     }
