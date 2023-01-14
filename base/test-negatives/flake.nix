@@ -36,7 +36,7 @@
                                             let
                                               pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
                                               in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo GOOD 1" ) ] ; }
-                                        )
+                                        ) ;
                                   }
                                   EOF
                                   ) &&
