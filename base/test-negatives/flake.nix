@@ -23,14 +23,14 @@
                               pkgs.writeShellScript
                                 name
                                 ''
-				  cd $( $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
-				  ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
-				  {
-				    inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; test = "/home/runner/work/strip/strip" ; } ;
-				    outputs = { self , nixpkgs , test } : flake-utils.lib.eachDefaultSystem ( system : ${ value.observed "test" } )
-				  }
-				  EOF
-				  ) &&
+                                  cd $( $( ${ pkgs.mktemp }/bin/mktemp --directory ) &&
+                                  ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
+                                  {
+                                    inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; test = "/home/runner/work/strip/strip" ; } ;
+                                    outputs = { self , nixpkgs , test } : flake-utils.lib.eachDefaultSystem ( system : ${ value.observed "test" } )
+                                  }
+                                  EOF
+                                  ) &&
                                   ! OBSERVED="$( ${ pkgs.nix }/bin/nix develop --command check > >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
