@@ -35,12 +35,12 @@
                                           system :
                                             let
                                               pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
-                                              in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" ${ value.observed "test" } ) ] ; } ;
+                                              in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo GOOD 1" ) ] ; } ;
                                         )
                                   }
                                   EOF
                                   ) &&
-                                  ! OBSERVED="$( ${ pkgs.nix }/bin/nix develop --command check 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
+                                  ! OBSERVED="$( ${ pkgs.nix }/bin/nix develop --command check > >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                   then
