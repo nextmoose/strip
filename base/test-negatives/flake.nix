@@ -27,7 +27,7 @@
                                   ${ pkgs.nix }/bin/nix flake init &&
                                   ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
                                   {
-                                    inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpckgs" ; test = "" ; } ;
+                                    inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpckgs" ; test = "/home/runner/work/strip/strip" ; } ;
                                     outputs =
                                       { self , flake-utils , nixpkgs } :
                                       flake-utils.lib.eachDefaultSystem
@@ -41,7 +41,7 @@
                                   EOF
                                   ) &&
                                   ${ pkgs.coreutils }/bin/cat flake.nix &&
-                                  ! OBSERVED="$( ${ builtins.trace "YES" pkgs.nix }/bin/nix develop --command check > >( ${ pkgs.coreutils }/bin/tee ) )" &&
+                                  ! OBSERVE                                                                                                                                                                                                      D="$( ${ builtins.trace "YES" pkgs.nix }/bin/nix develop --command check > >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                   then
