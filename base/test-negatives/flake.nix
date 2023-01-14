@@ -28,7 +28,7 @@
                                       (
                                         system :
                                           let
-                                            pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
+                                            pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                                             in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ; }
                                       ) ;
                                 }
