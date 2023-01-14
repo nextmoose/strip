@@ -11,7 +11,7 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.TOKEN }}
-    - run: cd util/test-negatives && ( nix develop --command check || cat /nix/store/nhkxg3ajn6f67wfd17p82k1dmk666qd1-sad1 )
+    - run: cd util/test-negatives && ( nix develop --command check || ( echo BEFORE && echo /nix/store/nhkxg3ajn6f67wfd17p82k1dmk666qd1-sad1 && cat /nix/store/nhkxg3ajn6f67wfd17p82k1dmk666qd1-sad1 && echo AFTER ) )
   positives:
     runs-on: ubuntu-latest
     steps:
