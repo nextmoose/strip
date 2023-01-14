@@ -44,18 +44,7 @@
                                                           pkgs.writeShellScriptBin
                                                             "check"
                                                             ''
-                                                              ( <<EOF
-                                                                We should not be able to compute this negative value.
-                                                                name
-                                                                BEGIN
-                                                                ${ name }
-                                                                END
-                                                                value
-                                                                BEGIN
-                                                                ${ value.observed "test" }
-                                                                END
-                                                              EOF
-                                                              )
+                                                              # THIS SHOULD NOT COMPILE
                                                             ''
                                                         )
                                                       ] ;
