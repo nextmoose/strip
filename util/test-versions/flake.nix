@@ -15,7 +15,7 @@
                 pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                 in
 		  {
-		    devShell = builtins.trace "YES" ( pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "test" "${ pkgs.coreutils }/bin/echo YES" ) ] ; } ) ;
+		    devShell = builtins.trace "YES" ( pkgs.mkShell { buildInputs = [ ] ; } ) ;
 		  }
               # builtins.getAttr
               #  system
