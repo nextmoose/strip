@@ -23,7 +23,30 @@
                               pkgs.writeShellScript
                                 name
                                 ''
-				  ${ pkgs.coreutils }/bin/echo YES
+                                  OBSERVED="${ value.observed _test }" &&
+                                  EXPECTED="${ value.expected }" &&
+                                  if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
+                                  then
+                                    ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                  #
+                                  TEST="GOOD"
+                                  TYPE="POSITIVE"
+                                  NAME="${ name }"
+                                  HASH="${ _utils.bash-variable "EXPECTED" }"
+                                  EOF
+                                    )
+                                  else
+                                    ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                  #
+                                  TEST="BAD"
+                                  TYPE="POSITIVE"
+                                  NAME="${ name }"
+                                  OBSERVED="${ _utils.bash-variable "OBSERVED" }"
+                                  EXPECTED="${ _utils.bash-variable "EXPECTED" }"
+                                  EOF
+                                    ) &&
+                                    exit 64
+                                  fi
                                 '' ;
                           in pkgs.mkShell
                             {   
