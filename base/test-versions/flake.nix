@@ -54,7 +54,7 @@
                                     '' ) ;
                           in pkgs.mkShell
                             {
-			      buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ;
+			      buildInputs = [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.map mapper versions ) ) ) ) ] ;
                             } ;
                     } ;
               }
