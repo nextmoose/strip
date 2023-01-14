@@ -13,7 +13,7 @@
                 pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                 in
 		  {
-		    devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "test" "${ pkgs.coreutils }/bin/echo PASSED" ) pkgs.coreutils ] ; } ;
+		    devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo PASSED" ) pkgs.coreutils ] ; } ;
 		  }
           ) ;
     }

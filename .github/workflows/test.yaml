@@ -16,3 +16,4 @@ jobs:
     - run: cd util/test-versions && nix develop --command pwd
     - run: cd util/test-versions && nix develop --command which pwd
     - run: cd util/test-versions && nix develop --command which test
+    - run: cd util/test-versions && nix develop --command which check
