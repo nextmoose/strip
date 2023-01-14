@@ -35,7 +35,7 @@
                                           system :
                                             let
                                               pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
-                                              in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" ${ value.observed "test" } ) ] ; }
+                                              in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" ${ value.observed "test" } ) ] ; } ;
                                         )
                                   }
                                   EOF
