@@ -40,7 +40,7 @@
                                   }
                                   EOF
                                   ) &&
-                                  ! OBSERVED="$( ${ pkgs.nix }/nix develop --command check )" &&
+                                  ! OBSERVED="$( ${ pkgs.nix }/nix develop --command check 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                   then
