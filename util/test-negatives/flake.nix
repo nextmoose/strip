@@ -5,7 +5,7 @@
           test-utils.url = "/home/runner/work/strip/strip/base/test-negatives" ;
         } ;
       outputs =
-        { self , nixpkgs , flake-utils , strip , test-utils } :
+        { self , nixpkgs , flake-utils , test-utils } :
           flake-utils.lib.eachDefaultSystem
           (
             system :
