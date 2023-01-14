@@ -14,3 +14,4 @@ jobs:
     - run: cd util/test-versions && cat flake.nix
     - run: cd util/test-versions && echo nix develop --command test
     - run: cd util/test-versions && nix develop --command pwd
+    - run: cd util/test-versions && nix develop --command "which pwd"
