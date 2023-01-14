@@ -21,7 +21,7 @@
                             name : value :
                               ''
                                 {
-                                  inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; test = "/home/runner/work/strip/strip" ; } ;
+                                  inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpkgs" ; test.url = "/home/runner/work/strip/strip" ; } ;
                                   outputs =
                                     { self , flake-utils , nixpkgs , test } :
                                     flake-utils.lib.eachDefaultSystem
