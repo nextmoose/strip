@@ -54,7 +54,7 @@
                                     '' ) ;
                           in pkgs.mkShell
                             {
-			      buildInputs = [ ( pkgs.writeShellScriptBin "test" "" ) ] ;
+			      buildInputs = [ ( pkgs.writeShellScriptBin "check" "" ) ] ;
                             } ;
                     } ;
               }
