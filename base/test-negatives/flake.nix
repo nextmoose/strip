@@ -27,8 +27,8 @@
                                   ${ pkgs.nix }/bin/nix flake init &&
                                   ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
                                   {
-                                    input = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpckgs" ; test = "" ; } ;
-                                    output =
+                                    inputs = { flake-utils.url = "github:numtide/flake-utils" ; nixpkgs.url = "github:nixos/nixpckgs" ; test = "" ; } ;
+                                    outputs =
                                       { self , flake-utils , nixpkgs } :
                                       flake-utils.lib.eachDefaultSystem
                                         (
