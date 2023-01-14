@@ -35,13 +35,37 @@
                                           system :
                                             let
                                               pkgs = builtins.getAttr system nixpkgs.defaultPackages ;
-                                              in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "${ pkgs.coreutils }/bin/echo GOOD 1" ) ] ; }
+                                              in
+                                                pkgs.mkShell
+                                                  {
+                                                    buildInputs =
+                                                      [
+                                                        (
+                                                          pkgs.writeShellScriptBin
+                                                            "check"
+                                                            ''
+                                                              ( ${ pkgs.coreutils }/bin/cat
+                                                                We should not be able to compute this negative value.
+                                                                name
+                                                                BEGIN
+                                                                ${ name }
+                                                                END
+                                                                value
+                                                                BEGIN
+                                                                ${ value.observed "test" }
+                                                                END
+                                                              EOF
+                                                              )
+                                                            ''
+                                                        )
+                                                      ] ;
+                                                  }
                                         ) ;
                                   }
                                   EOF
                                   ) &&
                                   ${ pkgs.coreutils }/bin/cat flake.nix &&
-                                  ! OBSERVE                                                                                                                                                                                                      D="$( ${ builtins.trace "YES" pkgs.nix }/bin/nix develop --command check > >( ${ pkgs.coreutils }/bin/tee ) )" &&
+                                  ! OBSERVED="$( ${ builtins.trace "YES" pkgs.nix }/bin/nix develop --command check 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                   then
