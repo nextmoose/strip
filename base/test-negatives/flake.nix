@@ -36,10 +36,7 @@
                                                     [
                                                       (
                                                         pkgs.writeShellScriptBin
-                                                          "check"
-                                                          ''
-                                                            # THIS SHOULD NOT COMPILE
-                                                          ''
+                                                          "check" "# THIS SHOULD NOT COMPILE"
                                                       )
                                                     ] ;
                                                 }
