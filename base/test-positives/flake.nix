@@ -52,7 +52,7 @@
                           in pkgs.mkShell
                             {
                               buildInputs =
-                                [ ( pkgs.writeShellScriptBin "test" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper positives ) ) ) ) ] ;
+                                [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper positives ) ) ) ) ] ;
                             } ;
                     } ;
               }
