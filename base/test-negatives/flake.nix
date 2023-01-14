@@ -23,7 +23,10 @@
                               pkgs.writeShellScript
                                 name
                                 ''
-				  cd $( ${ pkgs.coreutils }/bin/mktemp --directory ) &&
+                                  cd $( ${ pkgs.coreutils }/bin/mktemp --directory ) &&
+                                  ( ${ pkgs.coreutils }/bin/cat > flake.nix <<EOF
+                                  EOF
+                                  ) &&
                                   OBSERVED="${ value.observed "test" }" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
