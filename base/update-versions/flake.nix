@@ -18,22 +18,21 @@
                         let
                           _test = builtins.getAttr system test.lib ;
                           _utils = builtins.getAttr system utils.lib ;
-                          file = builtins.getAttr "nodes" ( builtins.import ./original.flake.nix ) ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           mapper =
                             name : value :
                               let
                                 input = builtins.getAttr name test.inputs ;
-                                x = builtins.getAttr "original" ( builtins.getAttr name file ) ;
                                 in
                                   builtins.toString ( pkgs.writeShellScript
                                     name
                                     ''
-                                      ${ pkgs.coreutils }/bin/echo <<EOF
+                                      ( ${ pkgs.coreutils }/bin/echo <<EOF
                                       ${ name }
                                       ${ value.rev }
-                                      ${ x.owner }
                                       EOF
+				      ) &&
+				      ${ pkgs.jq }/bin/jq ./original.flake.lock --raw-output ".nodes.${ name }.original.owner"
                                     '' ) ;
                           in pkgs.mkShell
                             {
