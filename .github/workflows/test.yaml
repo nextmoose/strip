@@ -3,6 +3,10 @@ on:
   pull_request:
   push:
 jobs:
+  basic:
+    runs-on: ubuntu-latest
+    steps:
+    - pwd
   negatives:
     runs-on: ubuntu-latest
     steps:
