@@ -43,9 +43,9 @@
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.templates ) }
                                       -- ${ value.sourceInfo.outPath }
                                       EOF
-                                      ) && 
-                                      ${ pkgs.findutils }/bin/find ${ value.sourceInfo.outPath } -name ".git" &&
-				      
+                                      ) &&
+                                      ${ pkgs.findutils }/bin/find ${ value.sourceInfo.outPath } -name ".git"
+                                      
                                     '' ) ;
                           in pkgs.mkShell
                             {
