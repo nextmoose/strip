@@ -18,7 +18,7 @@
                         let
                           _test = builtins.getAttr system test.lib ;
                           _utils = builtins.getAttr system utils.lib ;
-                          file = builtins.import ./original.flake.nix ;
+                          file = builtins.getAttr "nodes" ( builtins.import ./original.flake.nix ) ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           mapper =
                             name : value :
