@@ -30,6 +30,7 @@
                                       ( ${ pkgs.coreutils }/bin/cat <<EOF
                                       _ 
                                       NAME=${ name }
+                                      ${ builtins.concatStringsSep "\n" ( builtins.attrNames value ) }
                                       EOF
                                       )
                                     '' ) ;
