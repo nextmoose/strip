@@ -28,6 +28,9 @@
                                     name
                                     ''
                                       ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                      ${ _utils.visit { lambda = track : "<LAMBDA>" ; string = track : track.reduced ; undefined = track : builtins.toString track.reduced ; } value }
+                                      __
+                                      __
                                       _ 
                                       NAME=${ name }
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( n : v : "${ n } = ${ if builtins.typeOf v == "string" then v else "NOT A STRING" }" ) value ) ) }
