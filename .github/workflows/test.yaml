@@ -33,4 +33,6 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.TOKEN }}
+    - run: ls /home/runner/work/strip/strip
+    - run: ls /home/runner/work/strip/strip/base/test-versions
     - run: cd util/test-versions && nix develop --command check
