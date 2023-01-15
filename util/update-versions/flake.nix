@@ -8,6 +8,7 @@
       outputs =
         { self , flake-utils , strip , test-utils } :
           flake-utils.lib.eachDefaultSystem
+          (
             system : builtins.getAttr system test-utils.lib strip
           ) ;
     }
