@@ -30,7 +30,7 @@
                                       ( ${ pkgs.coreutils }/bin/cat <<EOF
                                       _ 
                                       NAME=${ name }
-                                      ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( n : v : "${ name } = ${ if builtins.typeOf v == "string" then v else "NOT A STRING" }" ) value ) ) }
+                                      ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( n : v : "${ n } = ${ if builtins.typeOf v == "string" then v else "NOT A STRING" }" ) value ) ) }
                                       EOF
                                       )
                                     '' ) ;
