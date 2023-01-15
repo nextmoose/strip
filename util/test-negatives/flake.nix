@@ -13,7 +13,7 @@
                 system
                 test-utils.lib
                 {
-		  sad1 = { expected = "bad 1" ; observed = test : "${ test } null" ; } ;
+		  sad1 = { observed = test : "${ test } null" ; expected = "668ec04c-a40c-45bc-b66d-de439acf4384" ; } ;
                 }
           ) ;
     }
