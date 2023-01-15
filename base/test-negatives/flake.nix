@@ -17,7 +17,7 @@
                       devShell =
                         let
                           _utils = builtins.getAttr system utils.lib ;
-			  close = builtins.concatStringsSep "" [ "}" ] ;
+                          close = builtins.concatStringsSep "" [ "}" ] ;
                           flake =
                             name : value :
                               ''
@@ -30,7 +30,7 @@
                                         system :
                                           let
                                             pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
-					    testee = builtins.getAttr system test.lib ;
+                                            testee = builtins.getAttr system test.lib ;
                                             in { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep "" [ "${ open }" "${ value.observed "( testee )" }" "${ close }" ] ) ) ] ; } ; }
                                       ) ;
                                 }
@@ -42,9 +42,13 @@
                                 name
                                 ''
                                   cd $( ${ pkgs.coreutils }/bin/mktemp --directory ) &&
+                                  ${ pkgs.git }/bin/git init &&
+                                  ${ pkgs.git }/bin/git config user.name "NO" &&
+                                  ${ pkgs.git }/bin/git config user.email "no@no" &&
                                   ${ pkgs.nix }/bin/nix flake init &&
                                   ${ pkgs.coreutils }/bin/cat ${ builtins.toFile "flake" ( flake name value ) } > flake.nix &&
                                   ${ pkgs.coreutils }/bin/cat flake.nix &&
+                                  ${ pkgs.git }/bin/git commit --allow --message "" --allow-empty-message &&
                                   ! OBSERVED="$( ${ builtins.trace "YES" pkgs.nix }/bin/nix develop --command check 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
@@ -70,7 +74,7 @@
                                     exit 64
                                   fi
                                 '' ;
-		          open = builtins.concatStringsSep "" [ "$" "{" ] ;
+                          open = builtins.concatStringsSep "" [ "$" "{" ] ;
                           in pkgs.mkShell
                             {   
                               buildInputs =
