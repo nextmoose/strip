@@ -33,5 +33,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - run: jq flake.lock --raw-output ".nodes"
+    - run: cat flake.lock | jq --raw-output ".nodes"
 
