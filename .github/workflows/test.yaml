@@ -1,0 +1,36 @@
+name: "Test"
+on:
+  pull_request:
+  push:
+jobs:
+  basic:
+    runs-on: ubuntu-latest
+    steps:
+    - run: pwd
+  negatives:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v17
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.TOKEN }}
+    - run: cd util/test-negatives && nix develop --command check
+  positives:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v17
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.TOKEN }}
+    - run: cd util/test-positives && nix develop --command check
+  versions:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v17
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.TOKEN }}
+    - run: cd util/test-versions && nix develop --command check
