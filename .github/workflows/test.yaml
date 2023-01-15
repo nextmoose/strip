@@ -37,4 +37,5 @@ jobs:
     - run: ls /home/runner/work/strip/strip/base/test-versions
     - run: ls util/test-versions
     - run: cat util/test-versions/flake.nix
+    - run: nix flake update
     - run: cd util/test-versions && nix develop --commit-lock-file --show-trace --command check
