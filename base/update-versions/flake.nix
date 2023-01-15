@@ -33,6 +33,8 @@
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( n : v : "${ n } = ${ if builtins.typeOf v == "string" then v else "NOT A STRING" }" ) value ) ) }
                                       _ inputs                     
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.inputs ) }
+                                      _ outputs                     
+                                      ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.outputs ) }
                                       _ lib
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.lib ) }
                                       _ sourceInfo
@@ -41,8 +43,9 @@
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.templates ) }
                                       -- ${ value.sourceInfo.outPath }
                                       EOF
-                                      ) &&
-                                      ${ pkgs.findutils }/bin/find ${ value.sourceInfo.outPath }
+                                      ) && 
+                                      ${ pkgs.findutils }/bin/find ${ value.sourceInfo.outPath } -name ".git" &&
+				      
                                     '' ) ;
                           in pkgs.mkShell
                             {
