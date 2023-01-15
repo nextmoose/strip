@@ -41,7 +41,8 @@
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.templates ) }
                                       -- ${ value.sourceInfo.outPath }
                                       EOF
-                                      )
+                                      ) &&
+                                      ${ pkgs.findutils }/bin/find ${ value.sourceInfo.outPath }
                                     '' ) ;
                           in pkgs.mkShell
                             {
