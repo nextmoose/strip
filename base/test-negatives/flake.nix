@@ -17,6 +17,7 @@
                       devShell =
                         let
                           _utils = builtins.getAttr system utils.lib ;
+			  close = builtins.concatStringsSep "" [ "}" ] ;
                           flake =
                             name : value :
                               ''
@@ -30,11 +31,10 @@
                                           let
                                             pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
 					    testee = builtins.getAttr system test.lib ;
-                                            in { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep "" [ "$" "{" ( ${ value.observed "( testee )" } ) "}" ] ) ) ] ; } ; }
+                                            in { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep "" [ open ( value.observed "( testee )" ) close ] ) ) ] ; } ; }
                                       ) ;
                                 }
                               '' ;
-			  expression = value : builtins.concatStringsSep "" ( builtins.concatLists [ [ "$" "{" ] value [ "}" ] ] ) ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           mapper =
                             name : value :
@@ -70,6 +70,7 @@
                                     exit 64
                                   fi
                                 '' ;
+		          open = builtins.concatStringsSep "" [ "$" "{" ] ;
                           in pkgs.mkShell
                             {   
                               buildInputs =
