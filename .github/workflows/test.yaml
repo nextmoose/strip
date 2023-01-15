@@ -3,10 +3,6 @@ on:
   pull_request:
   push:
 jobs:
-  basic:
-    runs-on: ubuntu-latest
-    steps:
-    - run: pwd
   negatives:
     runs-on: ubuntu-latest
     steps:
@@ -33,9 +29,4 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.TOKEN }}
-    - run: ls /home/runner/work/strip/strip
-    - run: ls /home/runner/work/strip/strip/base/test-versions
-    - run: ls util/test-versions
-    - run: cat util/test-versions/flake.nix
-    - run: nix flake update
-    - run: cd util/test-versions && nix develop --commit-lock-file --show-trace --command check
+    - run: cd util/test-versions && nix develop --command check
