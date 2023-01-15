@@ -37,5 +37,5 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.TOKEN }}
-    - run: cd util/test-versions && nix develop --command check
+    - run: cd util/update-versions && nix develop --command check
 
