@@ -37,4 +37,4 @@ jobs:
     - run: ls /home/runner/work/strip/strip/base/test-versions
     - run: ls util/test-versions
     - run: cat util/test-versions/flake.nix
-    - run: cd util/test-versions && nix develop --command check
+    - run: cd util/test-versions && nix develop --show-trace --command check
