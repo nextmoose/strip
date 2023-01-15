@@ -12,7 +12,7 @@
             system :
               {
                 lib =
-                  test :
+                  test : versions :
                     {
                       devShell =
                         let
@@ -27,13 +27,34 @@
                                   builtins.toString ( pkgs.writeShellScript
                                     name
                                     ''
-				      ${ pkgs.coreutils }/bin/echo &&
-				      ${ pkgs.coreutils }/bin/echo NAME=${ name } &&
-				      ${ pkgs.coreutils }/bin/echo ${ builtins.concatStringsSep " , " ( builtins.attrNames value ) }
+                                      OBSERVED="${ input.rev }" &&
+                                      EXPECTED="${ value }" &&
+                                      if [ "${ _utils.bash-variable "OBSERVED" }" == "${ _utils.bash-variable "EXPECTED" }" ]
+                                      then
+                                        ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                      #
+                                      TEST="GOOD"
+                                      TYPE="VERSION"
+                                      NAME="${ name }"
+                                      HASH="${ _utils.bash-variable "EXPECTED" }"
+                                      EOF
+                                        )
+                                      else
+                                        ( ${ pkgs.coreutils }/bin/cat <<EOF
+                                      #
+                                      TEST="GOOD"
+                                      TYPE="VERSION"
+                                      NAME="${ name }"
+                                      OBSERVED="${ _utils.bash-variable "OBSERVED" }"
+                                      EXPECTED="${ _utils.bash-variable "EXPECTED" }"
+                                      EOF
+                                        ) &&
+                                        exit 64
+                                      fi
                                     '' ) ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper test ) ) ) ) ] ;
+                              buildInputs = builtins.trace ( "${ builtins.typeOf ( builtins.mapAttrs mapper versions ) }" ) [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) ) ) ] ;
                             } ;
                     } ;
               }
