@@ -37,5 +37,5 @@ jobs:
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.TOKEN }}
-    - run: cd util/update-versions && nix develop --command check
+    - run: cp flake.nix base/update-versions/original.flake.nix && git -C base/update-versions add original.flake.nix && cd util/update-versions && nix develop --command check
 
