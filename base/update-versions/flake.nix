@@ -12,7 +12,7 @@
             system :
               {
                 lib =
-                  test : versions :
+                  test :
                     {
                       devShell =
                         let
@@ -35,7 +35,7 @@
                                     '' ) ;
                           in pkgs.mkShell
                             {
-                              buildInputs = builtins.trace ( "${ builtins.typeOf ( builtins.mapAttrs mapper versions ) }" ) [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper versions ) ) ) ) ] ;
+                              buildInputs = [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper test.input ) ) ) ) ] ;
                             } ;
                     } ;
               }
