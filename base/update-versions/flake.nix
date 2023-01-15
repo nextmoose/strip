@@ -35,7 +35,7 @@
                                     '' ) ;
                           in pkgs.mkShell
                             {
-                              buildInputs = [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper test.input ) ) ) ) ] ;
+                              buildInputs = [ ( pkgs.writeShellScriptBin "check" ( builtins.concatStringsSep " &&\n" ( builtins.attrValues ( builtins.mapAttrs mapper test.inputs ) ) ) ) ] ;
                             } ;
                     } ;
               }
