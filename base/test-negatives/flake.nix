@@ -48,8 +48,9 @@
                                   ${ pkgs.nix }/bin/nix flake init &&
                                   ${ pkgs.coreutils }/bin/cat ${ builtins.toFile "flake" ( flake name value ) } > flake.nix &&
                                   ${ pkgs.coreutils }/bin/cat flake.nix &&
-                                  ${ pkgs.git }/bin/git commit --all --allow-empty-message --message "" &
-                                  ! OBSERVED="$( ${ builtins.trace "YES" pkgs.nix }/bin/nix develop --command check 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
+                                  ${ pkgs.git }/bin/git commit --all --allow-empty-message --message "" &&
+				  ! ${ pkgs.nix }/bin/nix develop --command check &&
+                                  ! OBSERVED="$( ${ pkgs.nix }/bin/nix develop --command check 2> >( ${ pkgs.coreutils }/bin/tee ) )" &&
                                   EXPECTED="${ value.expected }" &&
                                   if [ "${ _utils.bash-variable "EXPECTED" }" == "${ _utils.bash-variable "OBSERVED" }" ]
                                   then
