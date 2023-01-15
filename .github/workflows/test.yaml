@@ -3,6 +3,11 @@ on:
   pull_request:
   push:
 jobs:
+  fails:
+    run-on: ubuntu-latest
+    steps:
+    - sleep 60s
+    - run: exit 64
   negatives:
     runs-on: ubuntu-latest
     steps:
