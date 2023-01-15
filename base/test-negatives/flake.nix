@@ -30,10 +30,11 @@
                                           let
                                             pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
 					    testee = builtins.getAttr system test.lib ;
-                                            in pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "{ ${ value.observed "( testee )" } }" ) ] ; }
+                                            in { devShell = pkgs.mkShell { buildInputs = [ ( pkgs.writeShellScriptBin "check" "{ ${ value.observed "( testee )" } }" ) ] ; } ; }
                                       ) ;
                                 }
                               '' ;
+			  expression = value : builtins.concatStringsSep "" ( builtins.concatLists [ [ "$" "{" ] value [ "}" ] ] ) ;
                           pkgs = builtins.getAttr system nixpkgs.legacyPackages ;
                           mapper =
                             name : value :
