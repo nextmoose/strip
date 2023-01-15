@@ -6,7 +6,7 @@ jobs:
   basic:
     runs-on: ubuntu-latest
     steps:
-    - pwd
+    - run: pwd
   negatives:
     runs-on: ubuntu-latest
     steps:
