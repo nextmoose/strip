@@ -31,7 +31,7 @@
                                       _ 
                                       NAME=${ name }
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrValues ( builtins.mapAttrs ( n : v : "${ n } = ${ if builtins.typeOf v == "string" then v else "NOT A STRING" }" ) value ) ) }
-                                      _ inputs 			   
+                                      _ inputs                     
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.inputs ) }
                                       _ lib
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.lib ) }
@@ -39,7 +39,7 @@
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.sourceInfo ) }
                                       _ templates 
                                       ${ builtins.concatStringsSep "\n" ( builtins.attrNames value.templates ) }
-				      -- ${ value.sourceInfo.outPath }
+                                      -- ${ value.sourceInfo.outPath }
                                       EOF
                                       )
                                     '' ) ;
