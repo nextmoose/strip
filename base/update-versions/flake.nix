@@ -28,7 +28,7 @@
                                     name
                                     ''
                                       ( ${ pkgs.coreutils }/bin/cat <<EOF
-                                      ${ _utils.visit { lambda = track : "<LAMBDA>" ; list = track : builtins.concatStringsSep " ;\n" track.reduced ; set = track : builtins.concatStringsSep " ;\n" ( builtins.attrValues ( builtins.mapAttrs ( n : v : "${ n } = ${ v }" ) ) ) ; string = track : track.reduced ; undefined = track : builtins.toString track.reduced ; } value }
+                                      ${ _utils.visit { lambda = track : "<LAMBDA>" ; list = track : builtins.concatStringsSep " ;\n" track.reduced ; set = track : builtins.concatStringsSep " ;\n" ( builtins.attrValues ( builtins.mapAttrs ( n : v : "${ n } = ${ v }" ) track.reduced ) ) ; string = track : track.reduced ; undefined = track : builtins.toString track.reduced ; } value }
                                       __
                                       __
                                       _ 
