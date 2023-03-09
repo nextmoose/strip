@@ -1,4 +1,4 @@
-name: "check"
+name: check
 on:
   push:
 jobs:
@@ -8,9 +8,9 @@ jobs:
       - uses: cachix/install-nix-action@a4b8aaf5a24260b643f571235829e53e6b3cc920
       - uses: nextmoose/test-action@eef4910e8ed5b796ffc68397185d0292e1c52cf3
         with:
-          implementation-url: github:nextmoose/shell
+          implementation-url: github:nextmoose/strip
           implementation-postulate: false
-          test-url: github:nextmoose/shell-test
+          test-url: github:nextmoose/strip-test
           test-postulate: false
           test-rev: 
           test-defect:
@@ -25,7 +25,7 @@ jobs:
         with:
           implementation-url: github:nextmoose/shell
           implementation-postulate: false
-          test-url: github:nextmoose/shell-test
+          test-url: github:nextmoose/strip-test
           test-postulate: true
           test-rev: 
           test-defect:
