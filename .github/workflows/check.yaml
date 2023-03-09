@@ -1,0 +1,32 @@
+name: "check"
+on:
+  push:
+jobs:
+  pre-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@a4b8aaf5a24260b643f571235829e53e6b3cc920
+      - uses: nextmoose/test-action@eef4910e8ed5b796ffc68397185d0292e1c52cf3
+        with:
+          implementation-url: github:nextmoose/shell
+          implementation-postulate: false
+          test-url: github:nextmoose/shell-test
+          test-postulate: false
+          test-rev: 
+          test-defect:
+          postulate: false
+  check:
+    runs-on: ubuntu-latest
+    needs: pre-check
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@a4b8aaf5a24260b643f571235829e53e6b3cc920
+      - uses: nextmoose/test-action@eef4910e8ed5b796ffc68397185d0292e1c52cf3
+        with:
+          implementation-url: github:nextmoose/shell
+          implementation-postulate: false
+          test-url: github:nextmoose/shell-test
+          test-postulate: true
+          test-rev: 
+          test-defect:
+          postulate: false
