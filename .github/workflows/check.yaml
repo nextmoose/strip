@@ -14,7 +14,7 @@ jobs:
           test-postulate: false
           test-rev: 
           test-defect:
-          postulate: false
+          postulate: true
   check:
     runs-on: ubuntu-latest
     needs: pre-check
